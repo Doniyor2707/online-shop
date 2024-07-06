@@ -2,7 +2,15 @@
     "editor.rulers": [
 
     ],
+
+    "editor.codeActionsOnSave": [
+        "source.removeUnusedImorts",
+        "source.addMissingImports",
+        "source.sortImports",
+        "source.fixAll"
+    ],
+
     "git-graph.contextMenuActionsVisibility": {
-        
+
     }
 }
