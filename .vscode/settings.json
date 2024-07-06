@@ -1,5 +1,8 @@
 {
     "editor.rulers": [
+
+    ],
+    "git-graph.contextMenuActionsVisibility": {
         
-    ]
+    }
 }
