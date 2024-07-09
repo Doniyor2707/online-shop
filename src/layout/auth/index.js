@@ -1,8 +1,12 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const MainAuth = () => {
   return (
-    <div>MainAuth</div>
+    <div>
+      MainAuth
+    <Outlet/>
+    </div>
   )
 }
 

@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between  ;
+}
+
+.mainLogo {
+    width: 100%;
+}
+
+.logo {
+}
+
+.lists {
+  display: flex;
+  list-style: none;
+}
+
+.listItem {
+}
+
+.listItemLink {
+  text-decoration: none;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--gr-color);
+}
