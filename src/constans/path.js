@@ -1,16 +1,14 @@
-// auth 
+// auth
 
-export const authRoutes = {
-
-}
+const authRoutes = {
+  login: "/login",
+  register: "/register",
+};
 
 // public...
 
-export const publicRoutes = {
-    home: "/",
-    discover: "/discover",
-    products: "/products",
-    authors: "/authors",
-    feed: "/feed",
-    contact: "/contact"
-}
+const publicRoutes = {
+  home: "/",
+};
+
+export { authRoutes, publicRoutes };
