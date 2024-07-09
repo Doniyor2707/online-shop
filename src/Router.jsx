@@ -1,13 +1,14 @@
-import { Route } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import { authRoutes } from "./constans/path"
 
 
 const Router = () => {
   return (
-    // auth
-   <Route path={authRoutes.login} element> 
+    <Routes>
+        {/* auth */}
 
-   </Route>
+    </Routes>
+   
   )
 }
 
