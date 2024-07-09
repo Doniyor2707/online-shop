@@ -1,4 +1,8 @@
-import { lazy } from "react";
 
+const MainLayout = () => {
+  return (
+    <div>MainLayout</div>
+  )
+}
 
-export const MainLayout = lazy(()=>import("./main/MainLayout"))
+export default MainLayout

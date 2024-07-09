@@ -1,5 +1,9 @@
-import { lazy } from "react";
+import React from 'react'
 
+const MainAuth = () => {
+  return (
+    <div>MainAuth</div>
+  )
+}
 
-export const Login = lazy(()=> import("./authLogin/Login"))
-export const Register = lazy(()=> import("./authRegister/Register"))
+export default MainAuth

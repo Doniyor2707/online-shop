@@ -1,2 +1,5 @@
-export * from "./auth/"
-export * from "./mainLayout/"
+import { lazy } from "react";
+
+
+export const MainLayout = lazy(()=>import("./mainLayout/"))
+export const MainAuth = lazy(()=>import("./auth/"))
