@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { authRoutes, publicRoutes } from "./constans/path";
 import MainAuth from "./layout/auth";
-import { Home, Login, Register } from "./pages";
+import { Home, Login, Register, Women } from "./pages";
 import { MainLayout } from "./layout";
 
 const Router = () => {
@@ -15,6 +15,7 @@ const Router = () => {
       {/* Layout */}
       <Route element={<MainLayout />}>
         <Route index path={publicRoutes.home} element={<Home/>}/>
+        <Route path={publicRoutes.men} element={<Women/>}/>
       </Route>
     </Routes>
   );

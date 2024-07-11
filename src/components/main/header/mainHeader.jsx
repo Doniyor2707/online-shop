@@ -9,6 +9,7 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { useCallback, useState } from "react";
+import { publicRoutes } from "../../../constans/path";
 
 const MainHeader = ({ data }) => {
   // state
@@ -23,9 +24,9 @@ const MainHeader = ({ data }) => {
     <div className={styles.header}>
       <div className={styles.body}>
         {/* Logo */}
-        <div className={styles.mainLogo}>
+        <Link to={publicRoutes.home} className={styles.mainLogo}>
           <img className={styles.logo} src={Logo} alt="Logo" />
-        </div>
+        </Link>
         {/* List */}
         <ul className={styles.lists}>
           {data.map((item) => (

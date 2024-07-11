@@ -21,7 +21,7 @@ const MainLayout = () => {
     {
       key: 3,
       title: "Women",
-      to: publicRoutes.home
+      to: publicRoutes.men
     },
 
     {
