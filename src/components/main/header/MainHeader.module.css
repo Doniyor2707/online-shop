@@ -1,28 +1,38 @@
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between  ;
+   border-bottom: 1px solid var(--primary--color);
+   padding: 12px 70px;
+   max-width: 1440px;
+   margin: 0 auto;
+}
+
+.body{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
 }
 
 .mainLogo {
-    width: 100%;
+   max-width: 90px;
 }
 
 .logo {
+  width: 100%;
+  object-fit: contain;
 }
 
 .lists {
   display: flex;
+  gap: 20px;
   list-style: none;
 }
 
-.listItem {
-}
 
 .listItemLink {
   text-decoration: none;
+  padding: 10px;
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 22px;
+  font-size: 18px;
   color: var(--gr-color);
 }

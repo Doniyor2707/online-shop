@@ -37,7 +37,12 @@
     /* colors */
     --pr-color: #3C4242;
     --gr-color: #807D7E;
-    --white-color: #ffff
+    --primary--color: #BEBCBD;
+    --white-color: #ffff;
+    --white-color-100: #F6F6F6;
+    --white-color-300: #EDEEF2;
+    --pruple-color: #8A33FD;
+
     /* bacground */
 }
 
