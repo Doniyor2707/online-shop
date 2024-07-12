@@ -1,8 +1,7 @@
 .header {
-   border-bottom: 1px solid var(--primary--color);
    padding: 12px 70px;
-   max-width: 1440px;
-   margin: 0 auto;
+   
+   border-bottom: 1px solid var(--primary--color);
 }
 
 .body{
