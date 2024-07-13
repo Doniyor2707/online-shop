@@ -1,0 +1,31 @@
+.titleBody {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 10p; */
+}
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 18px;
+  color: #3f4646;
+  padding: 40px;
+}
+
+.titleLink {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.titleLink a {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 18px;
+  color: #3f4646;
+}
+
+.titleLink a:first-child {
+  color: #8a33fd;
+}
