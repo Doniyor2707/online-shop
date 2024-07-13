@@ -1,6 +1,7 @@
 import styles from "./woman.module.css";
 import Sidebar from "./sidebar/Sidebar";
 import { Grid } from "@mui/material";
+import WomanBody from "./womenBody/WomanBody";
 
 const Woman = () => {
   const filterData = [
@@ -53,7 +54,7 @@ const Woman = () => {
 
       {/* woman body */}
       <Grid item md={9}>
-        <div className={styles.womanContent}></div>
+        <WomanBody/>
       </Grid>
     </Grid>
   );
