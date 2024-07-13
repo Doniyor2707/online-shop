@@ -1,4 +1,4 @@
-.filterColor{
+.filterSize{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,7 +8,7 @@
     border-top: none;
 }
 
-.colorItem {
+.sizeItem {
     border-radius: 12px;
     width: 36px;
     height: 36px;

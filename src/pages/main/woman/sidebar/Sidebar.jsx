@@ -3,8 +3,9 @@ import Title from "./siderbarFilterTitle/Title";
 import SiteList from "./Lists/SiteList";
 import SliderPrice from "./sideSlider/Slider";
 import FilterColor from "./filterColors/FilterColor";
+import Size from "./sizeFilter/Size";
 
-const Sidebar = ({ data }) => {
+const Sidebar = ({ data  }) => {
   const filterColors = [
     {
       key: 1,
@@ -69,6 +70,48 @@ const Sidebar = ({ data }) => {
     },
   ];
 
+  const filterSize = [
+    {
+      id: 1,
+      lable: "XXS",
+    },
+    {
+      id: 2,
+      lable: "XL",
+    },
+    {
+      id: 3,
+      lable: "XS",
+    },
+    {
+      id: 4,
+      lable: "S",
+    },
+    {
+      id: 5,
+      lable: "M",
+    },
+    {
+      id: 6,
+      lable: "L",
+    },
+    {
+      id: 7,
+      lable: "XXL",
+    },
+    {
+      id: 8,
+      lable: "3XL",
+    },
+    {
+      id: 9,
+      lable: "4XL",
+    },
+  ];
+
+
+
+
   return (
     <div className={styles.sidebar}>
       {/* Filter title */}
@@ -77,16 +120,26 @@ const Sidebar = ({ data }) => {
       {/* Filter list */}
       <SiteList data={data} />
 
-      {/* price */}
+      {/* price title*/}
       <Title value={"Price"} />
 
       {/* slider */}
       <SliderPrice />
 
+      {/* Color title */}
       <Title value={"Colors"} />
 
       {/* Filter colors */}
       <FilterColor data={filterColors} />
+
+      {/* Size title */}
+      <Title value={"Size"} />
+
+      {/* Size filter */}
+      <Size value={filterSize} />
+
+      <Title value={"Dress Style"}/>
+
     </div>
   );
 };

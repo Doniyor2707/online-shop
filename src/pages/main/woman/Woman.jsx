@@ -42,11 +42,13 @@ const Woman = () => {
     },
   ];
 
+
+
   return (
     <Grid container className={styles.woman}>
       {/* sidebar */}
       <Grid item md={3}>
-        <Sidebar data={filterData} />
+        <Sidebar data={filterData}/>
       </Grid>
 
       {/* woman body */}
