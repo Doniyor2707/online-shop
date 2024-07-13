@@ -1,16 +1,5 @@
 .woman {
-  display: flex;
-  min-height: 100vh;
   padding: 0 70px;
-}
-
-.sidebar {
-  width: 25%;
-  /* padding: 0 20px; */
-  /* background-color: red; */
-}
-
-.womanContent {
-  flex: 1;
+  margin: auto;
 }
 
