@@ -1,4 +1,5 @@
 import Title from "./bodyTitle/Title"
+import CardList from "./cardList/Card"
 import styles from "./womanBody.module.css"
 
 const WomanBody = () => {
@@ -9,6 +10,7 @@ const WomanBody = () => {
         
 
         {/* Card list */}
+        <CardList/>
     </div>
   )
 }
