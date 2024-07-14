@@ -120,9 +120,6 @@ const Sidebar = ({ data  }) => {
       {/* Filter list */}
       <SiteList data={data} />
 
-      {/* price title*/}
-      <Title value={"Price"} />
-
       {/* slider */}
       <SliderPrice />
 
