@@ -1,19 +1,17 @@
 import { Box, Slider } from "@mui/material";
-import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { Collapse, List } from "@mui/material";
 import styles from "./slider.module.css";
 import { useState } from "react";
+import Data from "../isOpen/data/Data";
 
 function valuetext(value) {
   return `${value}°C`;
 }
 
 const SliderPrice = () => {
+  // state
   const [open, setOpen] = useState(true);
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
   // state
   const [value, setValue] = useState([20, 37]);
 
@@ -24,14 +22,7 @@ const SliderPrice = () => {
     <div className={styles.slider}>
       <List sx={{ padding: 0 }}>
         <div className={styles.sliderWoman}>
-          <div className={styles.sliderWomanItem} onClick={handleClick}>
-            <h3 className={styles.title}>Price</h3>
-            {open ? (
-              <ExpandLess sx={{ color: "#807d7e" }} />
-            ) : (
-              <ExpandMore sx={{ color: "#807d7e" }} />
-            )}
-          </div>
+          <Data setOpen={setOpen} open={open} value={"Price"}/>
         </div>
         <div className={styles.sliderItem}>
           <Collapse in={open} timeout="auto" unmountOnExit>

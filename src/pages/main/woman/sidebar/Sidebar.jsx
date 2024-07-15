@@ -123,9 +123,6 @@ const Sidebar = ({ data  }) => {
       {/* slider */}
       <SliderPrice />
 
-      {/* Color title */}
-      <Title value={"Colors"} />
-
       {/* Filter colors */}
       <FilterColor data={filterColors} />
 

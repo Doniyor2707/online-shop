@@ -1,0 +1,14 @@
+.sliderWomanItem {
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  color: #807d7e;
+}
