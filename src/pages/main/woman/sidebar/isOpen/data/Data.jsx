@@ -2,6 +2,7 @@ import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import styles from "./data.module.css";
 
 const Data = ({ setOpen, open,value }) => {
+    
   const handleClick = () => {
     setOpen(!open);
   };

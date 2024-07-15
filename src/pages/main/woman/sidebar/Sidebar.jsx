@@ -126,9 +126,6 @@ const Sidebar = ({ data  }) => {
       {/* Filter colors */}
       <FilterColor data={filterColors} />
 
-      {/* Size title */}
-      <Title value={"Size"} />
-
       {/* Size filter */}
       <Size value={filterSize} />
 
