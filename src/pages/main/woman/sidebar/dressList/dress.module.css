@@ -1,0 +1,22 @@
+.dressList {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #bebcbd;
+    border-top: none;
+    /* padding: 10px 20px; */
+    width: 100%;
+  }
+
+.dressTitle{
+    border-bottom: 1px solid #bebcbd;
+}
+  
+  .dressLink {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-family);
+      font-weight: 600;
+      font-size: 16px;
+      color: #8a8989;
+    }

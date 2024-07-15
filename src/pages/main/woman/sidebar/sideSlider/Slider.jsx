@@ -17,7 +17,10 @@ const SliderPrice = () => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    console.log(event);
   };
+
+
   return (
     <div className={styles.slider}>
       <List sx={{ padding: 0 }}>
