@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* padding: 10p; */
+  margin: 30px;
 }
 
 .title {
@@ -10,7 +10,6 @@
   font-weight: 500;
   font-size: 18px;
   color: #3f4646;
-  padding: 40px;
 }
 
 .titleLink {

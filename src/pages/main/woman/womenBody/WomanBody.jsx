@@ -1,18 +1,17 @@
-import Title from "./bodyTitle/Title"
-import CardList from "./cardList/Card"
-import styles from "./womanBody.module.css"
+import Title from "./bodyTitle/Title";
+import Card from "./productCard/Card";
+import styles from "./womanBody.module.css";
 
 const WomanBody = () => {
   return (
     <div className={styles.womanBody}>
-        {/* Title */}
-        <Title/>
-        
+      {/* Title */}
+      <Title />
 
-        {/* Card list */}
-        <CardList/>
+      {/* Card list */}
+      <Card />
     </div>
-  )
-}
+  );
+};
 
-export default WomanBody
+export default WomanBody;
