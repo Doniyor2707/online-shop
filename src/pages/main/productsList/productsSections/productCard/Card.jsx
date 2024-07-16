@@ -1,6 +1,7 @@
 import styles from "./card.module.css";
 import img from "../../../../../assets/img/cardImg.jpg";
 import { Link } from "react-router-dom";
+import { memo } from "react";
 
 const Card = () => {
   return (
@@ -42,4 +43,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default memo(Card);

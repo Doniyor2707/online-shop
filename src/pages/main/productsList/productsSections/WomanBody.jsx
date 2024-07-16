@@ -1,4 +1,4 @@
-import Title from "./bodyTitle/Title";
+import Title from "./productSectionTitle/Title";
 import Card from "./productCard/Card";
 import styles from "./womanBody.module.css";
 

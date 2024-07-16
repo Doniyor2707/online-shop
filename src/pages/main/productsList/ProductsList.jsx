@@ -1,9 +1,9 @@
-import styles from "./woman.module.css";
-import Sidebar from "./sidebar/Sidebar";
+import styles from "./productsList.module.css";
 import { Grid } from "@mui/material";
-import WomanBody from "./womenBody/WomanBody";
+import Sidebar from "./productsFilter/Sidebar";
+import WomanBody from "./productsSections/WomanBody";
 
-const Woman = () => {
+const ProductsList = () => {
   const filterData = [
     {
       id: 1,
@@ -43,21 +43,19 @@ const Woman = () => {
     },
   ];
 
-
-
   return (
     <Grid container className={styles.woman}>
       {/* sidebar */}
       <Grid item md={3}>
-        <Sidebar data={filterData}/>
+        <Sidebar data={filterData} />
       </Grid>
 
       {/* woman body */}
       <Grid item md={9}>
-        <WomanBody/>
+       <WomanBody/>
       </Grid>
     </Grid>
   );
 };
 
-export default Woman;
+export default ProductsList;

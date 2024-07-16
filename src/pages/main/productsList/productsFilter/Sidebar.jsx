@@ -1,6 +1,6 @@
 import styles from "./sideBar.module.css";
 import Title from "./siderbarFilterTitle/Title";
-import SiteList from "./Lists/SiteList";
+import SiteList from "./lists/SiteList";
 import SliderPrice from "./sideSlider/Slider";
 import FilterColor from "./filterColors/FilterColor";
 import Size from "./sizeFilter/Size";
