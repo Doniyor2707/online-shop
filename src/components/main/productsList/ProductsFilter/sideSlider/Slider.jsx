@@ -13,7 +13,7 @@ const SliderPrice = () => {
   const [open, setOpen] = useState(true);
 
   // state
-  const [value, setValue] = useState([20, 37]);
+  const [value, setValue] = useState([20, 600]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -30,13 +30,15 @@ const SliderPrice = () => {
         <div className={styles.sliderItem}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <Box className={styles.sliderBar}>
+              <Box py={4} px={5} className={styles.sliderBar}>
                 <Slider
                   getAriaLabel={() => "Temperature range"}
                   value={value}
                   onChange={handleChange}
                   valueLabelDisplay="auto"
                   getAriaValueText={valuetext}
+                  min={0}
+                  max={1000}
                 />
               </Box>
               <div className={styles.price}>

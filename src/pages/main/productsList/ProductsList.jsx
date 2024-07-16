@@ -1,7 +1,7 @@
 import styles from "./productsList.module.css";
 import { Grid } from "@mui/material";
-import Sidebar from "./productsFilter/Sidebar";
-import WomanBody from "./productsSections/WomanBody";
+import Sidebar from "./prosuctsFilter/Sidebar";
+import ProductsSection from "./productsSections/ProductsSection";
 
 const ProductsList = () => {
   const filterData = [
@@ -50,9 +50,9 @@ const ProductsList = () => {
         <Sidebar data={filterData} />
       </Grid>
 
-      {/* woman body */}
+      {/* Products body */}
       <Grid item md={9}>
-       <WomanBody/>
+       <ProductsSection/>
       </Grid>
     </Grid>
   );

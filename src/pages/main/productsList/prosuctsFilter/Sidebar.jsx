@@ -1,10 +1,10 @@
 import styles from "./sideBar.module.css";
-import Title from "./siderbarFilterTitle/Title";
-import SiteList from "./lists/SiteList";
-import SliderPrice from "./sideSlider/Slider";
-import FilterColor from "./filterColors/FilterColor";
-import Size from "./sizeFilter/Size";
-import Dress from "./dressList/Dress";
+import Title from "../../../../components/main/productsList/ProductsFilter/siderbarFilterTitle/Title";
+import SiteList from "../../../../components/main/productsList/ProductsFilter/lists/SiteList";
+import SliderPrice from "../../../../components/main/productsList/ProductsFilter/sideSlider/Slider";
+import FilterColor from "../../../../components/main/productsList/ProductsFilter/filterColors/FilterColor";
+import Size from "../../../../components/main/productsList/ProductsFilter/sizeFilter/Size";
+import Dress from "../../../../components/main/productsList/ProductsFilter/dressList/Dress";
 
 const Sidebar = ({ data }) => {
   const filterColors = [
