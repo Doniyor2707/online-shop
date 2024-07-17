@@ -1,6 +1,6 @@
 import { Collapse, Grid } from "@mui/material";
 import styles from "./color.module.css";
-import Data from "../isOpen/data/Data";
+import Data from "../openClose/data/Data";
 import { useState } from "react";
 
 const FilterColor = ({ data }) => {

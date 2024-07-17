@@ -1,6 +1,6 @@
 import { Button, Collapse, Grid } from "@mui/material";
 import styles from "./size.module.css";
-import Data from "../isOpen/data/Data";
+import Data from "../openClose/data/Data";
 import { useState } from "react";
 
 const Size = ({ value }) => {

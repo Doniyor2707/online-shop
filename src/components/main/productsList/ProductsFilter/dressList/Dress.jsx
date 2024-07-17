@@ -1,7 +1,7 @@
 import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import styles from "./dress.module.css";
-import Data from "../isOpen/data/Data";
+import Data from "../openClose/data/Data";
 import { useState } from "react";
 
 const Dress = ({ data }) => {

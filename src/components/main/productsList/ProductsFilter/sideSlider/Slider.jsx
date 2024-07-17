@@ -2,7 +2,7 @@ import { Box, Slider } from "@mui/material";
 import { Collapse, List } from "@mui/material";
 import styles from "./slider.module.css";
 import { memo, useState } from "react";
-import Data from "../isOpen/data/Data";
+import Data from "../openClose/data/Data";
 
 function valuetext(value) {
   return `${value}°C`;
