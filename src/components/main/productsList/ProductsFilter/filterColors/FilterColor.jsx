@@ -18,7 +18,10 @@ const FilterColor = ({ data }) => {
               <div
                 style={{background:item.color}}
                 className={styles.colorItem}
-              ></div>
+              >
+                
+              </div>
+              <span className={styles.colorTitle}>{item.title}</span>
             </Grid>
           ))}
         </Grid>

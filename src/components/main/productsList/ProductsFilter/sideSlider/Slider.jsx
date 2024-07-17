@@ -15,17 +15,29 @@ const SliderPrice = () => {
   // state
   const [value, setValue] = useState([70, 600]);
 
+  const handleStorage = () => {
+    const newVal = JSON.parse(localStorage.getItem("value"));
+
+    if (newVal === null) {
+      return value;
+    } else {
+     return JSON.parse(newVal)
+    }
+  };
+
+
+   localStorage.setItem("value", JSON.stringify(value));
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     console.log(event);
   };
 
-
   return (
     <div className={styles.slider}>
       <List sx={{ padding: 0 }}>
         <div className={styles.sliderWoman}>
-          <Data setOpen={setOpen} open={open} value={"Price"}/>
+          <Data setOpen={setOpen} open={open} value={"Price"} />
         </div>
         <div className={styles.sliderItem}>
           <Collapse in={open} timeout="auto" unmountOnExit>
