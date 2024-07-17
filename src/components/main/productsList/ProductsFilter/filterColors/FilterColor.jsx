@@ -1,4 +1,4 @@
-import { Button, Collapse, Grid } from "@mui/material";
+import { Collapse, Grid } from "@mui/material";
 import styles from "./color.module.css";
 import Data from "../isOpen/data/Data";
 import { useState } from "react";
@@ -15,10 +15,10 @@ const FilterColor = ({ data }) => {
         <Grid container className={styles.filterColor}>
           {data.map((item) => (
             <Grid item xs={3} key={item.key} className={styles.color}>
-              <Button
-                sx={{ background: item.color }}
+              <div
+                style={{background:item.color}}
                 className={styles.colorItem}
-              ></Button>
+              ></div>
             </Grid>
           ))}
         </Grid>

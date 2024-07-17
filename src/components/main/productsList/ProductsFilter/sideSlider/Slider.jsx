@@ -1,7 +1,7 @@
 import { Box, Slider } from "@mui/material";
 import { Collapse, List } from "@mui/material";
 import styles from "./slider.module.css";
-import { useState } from "react";
+import { memo, useState } from "react";
 import Data from "../isOpen/data/Data";
 
 function valuetext(value) {
@@ -13,7 +13,7 @@ const SliderPrice = () => {
   const [open, setOpen] = useState(true);
 
   // state
-  const [value, setValue] = useState([20, 600]);
+  const [value, setValue] = useState([70, 600]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -53,4 +53,4 @@ const SliderPrice = () => {
   );
 };
 
-export default SliderPrice;
+export default memo(SliderPrice);
