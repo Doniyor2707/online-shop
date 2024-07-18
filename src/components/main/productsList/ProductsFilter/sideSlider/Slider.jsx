@@ -15,16 +15,6 @@ const SliderPrice = () => {
   // state
   const [value, setValue] = useState([70, 600]);
 
-  const handleStorage = () => {
-    const newVal = JSON.parse(localStorage.getItem("value"));
-
-    if (newVal === null) {
-      return value;
-    } else {
-     return JSON.parse(newVal)
-    }
-  };
-
 
    localStorage.setItem("value", JSON.stringify(value));
 

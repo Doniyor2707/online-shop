@@ -1,7 +1,7 @@
 import styles from "./MainHeader.module.css";
 import Logo from "../../../assets/Icon/Logo.svg";
 import { Link } from "react-router-dom";
-import SearchInput from "../../searchBox/SearchInput";
+import SearchInput from "./searchBox/SearchInput";
 import { IconButton } from "@mui/material";
 import {
   FavoriteBorderOutlined,
