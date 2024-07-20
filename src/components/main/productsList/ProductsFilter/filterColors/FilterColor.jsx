@@ -4,7 +4,14 @@ import Data from "../openClose/data/Data";
 import { useState } from "react";
 
 const FilterColor = ({ data }) => {
+
   const [open, setOpen] = useState(true);
+  
+  const [activeColor, setActiveColor] = useState(null);
+
+  const handleColorClick = (key) => {
+    setActiveColor(key);
+  };
 
   return (
     <>
@@ -13,15 +20,19 @@ const FilterColor = ({ data }) => {
       </div>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Grid container className={styles.filterColor}>
-          {data.map((item) => (
-            <Grid item xs={3} key={item.key} className={styles.color}>
+          {data.map(({ key, color, title }) => (
+            <Grid
+              item
+              xs={3}
+              key={key}
+              className={[styles.color ,activeColor === key ? styles.active : ""]}
+              onClick={() => handleColorClick(key)}
+            >
               <div
-                style={{background:item.color}}
+                style={{ background: color }}
                 className={styles.colorItem}
-              >
-                
-              </div>
-              <span className={styles.colorTitle}>{item.title}</span>
+              ></div>
+              <span className={styles.colorTitle}>{title}</span>
             </Grid>
           ))}
         </Grid>

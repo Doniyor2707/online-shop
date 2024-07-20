@@ -31,3 +31,7 @@
   color: #8a8989;
   margin-top: 16px;
 }
+
+.color.active {
+  border: 1px solid #000; /* Active holatda border qo'shamiz */
+}

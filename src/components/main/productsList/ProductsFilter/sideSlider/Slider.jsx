@@ -8,19 +8,13 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
-const SliderPrice = () => {
+const SliderPrice = ({ setValue,value }) => {
   // state
   const [open, setOpen] = useState(true);
 
   // state
-  const [value, setValue] = useState([70, 600]);
-
-
-   localStorage.setItem("value", JSON.stringify(value));
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(event);
   };
 
   return (
