@@ -4,9 +4,6 @@ import styles from "./slider.module.css";
 import { memo, useState } from "react";
 import Data from "../openClose/data/Data";
 
-function valuetext(value) {
-  return `${value}°C`;
-}
 
 const SliderPrice = ({ setValue,value }) => {
   // state
@@ -28,13 +25,11 @@ const SliderPrice = ({ setValue,value }) => {
             <List component="div" disablePadding>
               <Box py={4} px={5} className={styles.sliderBar}>
                 <Slider
-                  getAriaLabel={() => "Temperature range"}
                   value={value}
                   onChange={handleChange}
-                  valueLabelDisplay="auto"
-                  getAriaValueText={valuetext}
+                  valueLabelDisplay="auto"              
                   min={0}
-                  max={1000}
+                  max={1200}
                 />
               </Box>
               <div className={styles.price}>

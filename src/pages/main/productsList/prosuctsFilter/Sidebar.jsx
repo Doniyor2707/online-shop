@@ -140,9 +140,9 @@ const dressList = [
 
 const Sidebar = ({ data }) => {
   // state
-  const [price, setPrice] = useState([70, 600]);
+  const [price, setPrice] = useState([60,600]);
 
-
+console.log(price);
   // search params
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -156,6 +156,7 @@ const Sidebar = ({ data }) => {
   const handleChangePrice = useCallback(
     (value) => {
       setSearchParams({ price: value });
+      console.log(value);
     },
     [setSearchParams]
   );

@@ -20,9 +20,9 @@
   margin-bottom: 18px;
 }
 
-.colorItem:hover {
-  border: 2px solid #bebcbd;
-}
+  /* .colorItem.active {
+    border: 2px solid #bebcbd;
+  } */
 
 .colorTitle {
   font-family: var(--font-family);
@@ -32,6 +32,6 @@
   margin-top: 16px;
 }
 
-.color.active {
+/* .color.active {
   border: 1px solid #000; /* Active holatda border qo'shamiz */
-}
+/* // */

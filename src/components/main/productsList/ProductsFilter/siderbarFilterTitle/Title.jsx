@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styles from "./title.module.css";
 
 const Title = ({ value }) => {
@@ -26,4 +27,4 @@ const Title = ({ value }) => {
   );
 };
 
-export default Title;
+export default memo(Title);

@@ -1,7 +1,7 @@
 import { Button, Collapse, Grid } from "@mui/material";
 import styles from "./size.module.css";
 import Data from "../openClose/data/Data";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const Size = ({ value }) => {
   const [open, setOpen] = useState(true);
@@ -26,4 +26,4 @@ const Size = ({ value }) => {
   );
 };
 
-export default Size;
+export default memo(Size);

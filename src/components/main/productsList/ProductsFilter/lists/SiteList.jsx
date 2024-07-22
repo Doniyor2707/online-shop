@@ -1,6 +1,7 @@
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import styles from "./list.module.css";
 import { List, ListItemButton, ListItemText } from "@mui/material";
+import { memo } from "react";
 
 const SiteList = ({ data }) => {
   return (
@@ -17,4 +18,4 @@ const SiteList = ({ data }) => {
   );
 };
 
-export default SiteList;
+export default memo(SiteList);
