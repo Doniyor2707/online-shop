@@ -15,7 +15,7 @@ const Dress = ({ data }) => {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List>
           {data.map((item) => (
-            <ListItemButton key={item.key}>
+            <ListItemButton key={item.id}>
               <ListItemText className={styles.dressLink} primary={item.label} />
               <NavigateNextIcon sx={{ color: "#8a8989" }} />
             </ListItemButton>

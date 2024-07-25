@@ -10,65 +10,65 @@ import { useSearchParams } from "react-router-dom";
 
 const filterColors = [
   {
-    key: 1,
+    id: 1,
     title: "Purple",
-    color: "#8434E1",
+    colorVal: "#8434E1",
   },
   {
-    key: 2,
+    id: 2,
     title: "Black",
-    color: "#252525",
+    colorVal: "#252525",
   },
   {
-    key: 3,
+    id: 3,
     title: "Red",
-    color: "#F35528",
+    colorVal: "#F35528",
   },
 
   {
-    key: 4,
+    id: 4,
     title: "Orange",
-    color: "#F16F2B",
+    colorVal: "#F16F2B",
   },
   {
-    key: 5,
+    id: 5,
     title: "Navy",
-    color: "#345EFF",
+    colorVal: "#345EFF",
   },
   {
-    key: 6,
+    id: 6,
     title: "White",
-    color: "#F4F1F1",
+    colorVal: "#F4F1F1",
   },
   {
-    key: 7,
+    id: 7,
     title: "Broom",
-    color: "#D67E3B",
+    colorVal: "#D67E3B",
   },
   {
-    key: 8,
+    id: 8,
     title: "Green",
-    color: "#48BC4E",
+    colorVal: "#48BC4E",
   },
   {
-    key: 9,
+    id: 9,
     title: "Yellow",
-    color: "#FDC761",
+    colorVal: "#FDC761",
   },
   {
-    key: 10,
+    id: 10,
     title: "Grey",
-    color: "#E4E5E8",
+    colorVal: "#E4E5E8",
   },
   {
-    key: 11,
+    id: 11,
     title: "Pink",
-    color: "#E08D9D",
+    colorVal: "#E08D9D",
   },
   {
-    key: 12,
+    id: 12,
     title: "Blue",
-    color: "#3FDEFF",
+    colorVal: "#3FDEFF",
   },
 ];
 
@@ -113,38 +113,40 @@ const filterSize = [
 
 const dressList = [
   {
-    key: 1,
+    id: 1,
     label: "Classic",
   },
   {
-    key: 2,
+    id: 2,
     label: "Casual",
   },
   {
-    key: 3,
+    id: 3,
     label: "Business",
   },
   {
-    key: 4,
+    id: 4,
     label: "Sport",
   },
   {
-    key: 5,
+    id: 5,
     label: "Elegant",
   },
   {
-    key: 6,
+    id: 6,
     label: "Formal (evening)",
   },
 ];
 
 const Sidebar = ({ data }) => {
   // state
-  const [price, setPrice] = useState([60,600]);
-
-console.log(price);
+  const [price, setPrice] = useState([60, 600]);
+  // color items
+  const [colorItems, setColorItems] = useState(filterColors);
   // search params
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [searchParamsColor, setSearchParamsColor] = useSearchParams();
 
   useEffect(() => {
     const priceParams = searchParams.getAll("price");
@@ -152,16 +154,41 @@ console.log(price);
     if (priceParams.length) setPrice(priceParams.map((item) => Number(item)));
   }, [searchParams]);
 
+  useEffect(() => {
+    const colorParams = searchParamsColor.getAll("color");
+
+    console.log(colorParams);
+
+    if (colorParams.length)
+      setColorItems(colorParams.map((item) => Number(item)));
+  }, [searchParamsColor]);
+
   // handle change price
   const handleChangePrice = useCallback(
     (value) => {
       setSearchParams({ price: value });
-      console.log(value);
     },
     [setSearchParams]
   );
 
-  
+  const handleChangeColor = useCallback(
+    (color) => {
+      const data = [...colorItems];
+    
+      
+      const index = colorItems.findIndex((item) => item.id === color.id);
+      if (index === -1) return console.error("Not Found");
+
+      data[index] = color;
+
+      // data[1] =  
+
+      // data[1] = { key : ... ,title:,isChecked: true,}
+
+      setColorItems(data);
+    },
+    [colorItems]
+  );
 
   return (
     <div className={styles.sidebar}>
@@ -175,7 +202,7 @@ console.log(price);
       <SliderPrice setValue={handleChangePrice} value={price} />
 
       {/* Filter colors */}
-      <FilterColor data={filterColors}/>
+      <FilterColor data={colorItems} setValue={handleChangeColor} />
 
       {/* Size filter */}
       <Size value={filterSize} />

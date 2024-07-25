@@ -13,18 +13,19 @@
   border-top: none;
 }
 
-.colorItem {
+/* .colorItem {
   border-radius: 12px;
   width: 37px;
   height: 37px;
   margin-bottom: 18px;
-}
+} */
 
-  /* .colorItem.active {
+/* .colorItem.active {
     border: 2px solid #bebcbd;
   } */
 
 .colorTitle {
+  text-align: center;
   font-family: var(--font-family);
   font-weight: 600;
   font-size: 14px;
@@ -35,3 +36,28 @@
 /* .color.active {
   border: 1px solid #000; /* Active holatda border qo'shamiz */
 /* // */
+
+.checkBox {
+  min-height: 70px;
+  position: relative;
+}
+
+.checkBoxInput {
+  position: absolute;
+
+  z-index: 1;
+}
+
+.colorBox {
+  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 18px;
+}
+.checkBoxLabel {
+  display: inline-block;
+  font-family: var(--pr-family);
+  font-weight: 600;
+  font-size: 14px;
+  color: #8a8989;
+}
