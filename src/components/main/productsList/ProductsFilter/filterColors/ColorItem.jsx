@@ -1,7 +1,7 @@
 import styles from "./color.module.css"
 import { memo, useCallback } from "react";
 
-const ColorItem = ({ colorVal, id, title, setValue }) => {
+const ColorItem = ({ colorVal, id, title, setValue,isChecked }) => {
   //handle checkbox
   const handleCheckbox = useCallback(
     (event) => {
@@ -25,6 +25,7 @@ const ColorItem = ({ colorVal, id, title, setValue }) => {
         type="checkbox"
         className={styles.checkBoxInput}
         id={id}
+        checked={isChecked}
         onChange={handleCheckbox}
       />
       <div className={styles.colorBox} style={{ background: colorVal }}></div>

@@ -13,62 +13,74 @@ const filterColors = [
     id: 1,
     title: "Purple",
     colorVal: "#8434E1",
+    isChecked: false,
   },
   {
     id: 2,
     title: "Black",
     colorVal: "#252525",
+    isChecked: false,
   },
   {
     id: 3,
     title: "Red",
     colorVal: "#F35528",
+    isChecked: false,
   },
 
   {
     id: 4,
     title: "Orange",
     colorVal: "#F16F2B",
+    isChecked: false,
   },
   {
     id: 5,
     title: "Navy",
     colorVal: "#345EFF",
+    isChecked: false,
   },
   {
     id: 6,
     title: "White",
     colorVal: "#F4F1F1",
+    isChecked: false,
   },
   {
     id: 7,
     title: "Broom",
     colorVal: "#D67E3B",
+    isChecked: false,
   },
   {
     id: 8,
     title: "Green",
     colorVal: "#48BC4E",
+    isChecked: false,
   },
   {
     id: 9,
     title: "Yellow",
     colorVal: "#FDC761",
+    isChecked: false,
   },
   {
     id: 10,
     title: "Grey",
     colorVal: "#E4E5E8",
+    isChecked: false,
   },
   {
     id: 11,
     title: "Pink",
     colorVal: "#E08D9D",
+    isChecked: false,
   },
   {
     id: 12,
     title: "Blue",
     colorVal: "#3FDEFF",
+    isChecked: false,
   },
 ];
 
@@ -138,7 +150,7 @@ const dressList = [
   },
 ];
 
-const Sidebar = ({ data }) => {
+const Sidebar = ({ val }) => {
   // state
   const [price, setPrice] = useState([60, 600]);
   // color items
@@ -146,22 +158,32 @@ const Sidebar = ({ data }) => {
   // search params
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [searchParamsColor, setSearchParamsColor] = useSearchParams();
+  // Handel color set
+  const handleSetColorToParams = useCallback(
+    (arrKeys) => {
+      setSearchParams({ colors: arrKeys });
+    },
+    [setSearchParams]
+  );
+
+  const handleChangeColorActive = useCallback((arrKeys) => {
+    setColorItems((prev) => {
+      return prev.map((color) => ({
+        ...color,
+        isChecked: arrKeys.includes(color.title),
+      }));
+    });
+  }, []);
 
   useEffect(() => {
     const priceParams = searchParams.getAll("price");
 
     if (priceParams.length) setPrice(priceParams.map((item) => Number(item)));
-  }, [searchParams]);
 
-  useEffect(() => {
-    const colorParams = searchParamsColor.getAll("color");
+    const colorParams = searchParams.getAll("colors");
 
-    console.log(colorParams);
-
-    if (colorParams.length)
-      setColorItems(colorParams.map((item) => Number(item)));
-  }, [searchParamsColor]);
+    if (colorParams) handleChangeColorActive(colorParams);
+  }, [searchParams, handleChangeColorActive]);
 
   // handle change price
   const handleChangePrice = useCallback(
@@ -174,20 +196,21 @@ const Sidebar = ({ data }) => {
   const handleChangeColor = useCallback(
     (color) => {
       const data = [...colorItems];
-    
-      
+
       const index = colorItems.findIndex((item) => item.id === color.id);
       if (index === -1) return console.error("Not Found");
 
       data[index] = color;
 
-      // data[1] =  
+      const arrKeys = data
+        .filter((color) => color.isChecked)
+        .map((color) => color.title);
 
-      // data[1] = { key : ... ,title:,isChecked: true,}
+      handleSetColorToParams(arrKeys);
 
       setColorItems(data);
     },
-    [colorItems]
+    [colorItems,handleSetColorToParams]
   );
 
   return (
@@ -196,7 +219,7 @@ const Sidebar = ({ data }) => {
       <Title value={"Filter"} />
 
       {/* Filter list */}
-      <SiteList data={data} />
+      <SiteList data={val} />
 
       {/* slider */}
       <SliderPrice setValue={handleChangePrice} value={price} />

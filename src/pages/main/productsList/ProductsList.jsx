@@ -47,7 +47,7 @@ const ProductsList = () => {
     <Grid container className={styles.woman}>
       {/* sidebar */}
       <Grid item md={3}>
-        <Sidebar data={filterData} />
+        <Sidebar val={filterData} />
       </Grid>
 
       {/* Products body */}
