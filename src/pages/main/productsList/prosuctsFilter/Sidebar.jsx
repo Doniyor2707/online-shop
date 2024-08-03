@@ -155,15 +155,27 @@ const Sidebar = ({ val }) => {
   const [price, setPrice] = useState([60, 600]);
   // color items
   const [colorItems, setColorItems] = useState(filterColors);
+
   // search params
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Handel color set
+
   const handleSetColorToParams = useCallback(
     (arrKeys) => {
-      setSearchParams({ colors: arrKeys });
+      const oldParams = searchParams.get("query");
+
+      if (!oldParams && oldParams !== null) {
+        setSearchParams({});
+        return;
+      }
+
+      const queryData = JSON.parse(oldParams);
+
+      const setData = JSON.stringify({ ...queryData, colors: arrKeys });
+      setSearchParams({ query: setData });
     },
-    [setSearchParams]
+    [setSearchParams, searchParams]
   );
 
   const handleChangeColorActive = useCallback((arrKeys) => {
@@ -176,22 +188,39 @@ const Sidebar = ({ val }) => {
   }, []);
 
   useEffect(() => {
-    const priceParams = searchParams.getAll("price");
+    // Query params
+    const query = searchParams.getAll("query");
 
-    if (priceParams.length) setPrice(priceParams.map((item) => Number(item)));
+    if (!query) return () => null;
 
-    const colorParams = searchParams.getAll("colors");
+    const { price,colors } = JSON.parse(query);
 
-    if (colorParams) handleChangeColorActive(colorParams);
+    if (price && price.length) setPrice(price.map((item) => Number(item)));
+
+    if (colors && colors.length) {
+      handleChangeColorActive(colors);
+    }
   }, [searchParams, handleChangeColorActive]);
 
   // handle change price
   const handleChangePrice = useCallback(
     (value) => {
-      setSearchParams({ price: value });
+      const oldParams = searchParams.get("query");
+
+      if (!oldParams && oldParams !== null) {
+        setSearchParams({});
+        return;
+      }
+
+      const queryData = JSON.parse(oldParams);
+
+      const setData = JSON.stringify({ ...queryData, price: value });
+      setSearchParams({ query: setData });
     },
-    [setSearchParams]
+    [setSearchParams, searchParams]
   );
+
+  // handle change color
 
   const handleChangeColor = useCallback(
     (color) => {
@@ -210,7 +239,7 @@ const Sidebar = ({ val }) => {
 
       setColorItems(data);
     },
-    [colorItems,handleSetColorToParams]
+    [colorItems, handleSetColorToParams]
   );
 
   return (
