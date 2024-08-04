@@ -44,7 +44,6 @@
 
 .checkBoxInput {
   position: absolute;
-
   z-index: 1;
 }
 
@@ -60,4 +59,34 @@
   font-weight: 600;
   font-size: 14px;
   color: #8a8989;
+}
+
+.checkBoxInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+
+  z-index: -1;
+}
+
+.checkBoxInput:checked + .colorBox {
+  outline: 3px solid #8a33fd;
+}
+.checkBoxInput:checked + .colorBox .colorBoxIcon {
+  display: inline-block;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.colorBoxIcon {
+  color: #fff;
+}
+
+.colorBox .colorBoxIcon {
+  display: none;
 }

@@ -87,39 +87,48 @@ const filterColors = [
 const filterSize = [
   {
     id: 1,
-    lable: "XXS",
+    label: "XXS",
+    isCheckedSize:false,
   },
   {
     id: 2,
-    lable: "XL",
+    label: "XL",
+    isCheckedSize:false,
   },
   {
     id: 3,
-    lable: "XS",
+    label: "XS",
+    isCheckedSize:false,
   },
   {
     id: 4,
-    lable: "S",
+    label: "S",
+    isCheckedSize:false,
   },
   {
     id: 5,
-    lable: "M",
+    label: "M",
+    isCheckedSize:false,
   },
   {
     id: 6,
-    lable: "L",
+    label: "L",
+    isCheckedSize:false,
   },
   {
     id: 7,
-    lable: "XXL",
+    label: "XXL",
+    isCheckedSize:false,
   },
   {
     id: 8,
-    lable: "3XL",
+    label: "3XL",
+    isCheckedSize:false,
   },
   {
     id: 9,
-    lable: "4XL",
+    label: "4XL",
+    isCheckedSize:false,
   },
 ];
 
@@ -156,6 +165,8 @@ const Sidebar = ({ val }) => {
   // color items
   const [colorItems, setColorItems] = useState(filterColors);
 
+  const [sizeItems, setSizeItems] = useState(filterSize)
+
   // search params
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -189,14 +200,16 @@ const Sidebar = ({ val }) => {
 
   useEffect(() => {
     // Query params
-    const query = searchParams.getAll("query");
-
+    const query = searchParams.get("query");
+    
+    
     if (!query) return () => null;
 
-    const { price,colors } = JSON.parse(query);
-
+    const { price, colors } = JSON.parse(query);
+      // price
     if (price && price.length) setPrice(price.map((item) => Number(item)));
 
+    // colors
     if (colors && colors.length) {
       handleChangeColorActive(colors);
     }
@@ -242,6 +255,11 @@ const Sidebar = ({ val }) => {
     [colorItems, handleSetColorToParams]
   );
 
+  const handleChangeSize = useCallback(
+    (size) => {
+      console.log(size);
+  },[sizeItems]);
+
   return (
     <div className={styles.sidebar}>
       {/* Filter title */}
@@ -257,7 +275,7 @@ const Sidebar = ({ val }) => {
       <FilterColor data={colorItems} setValue={handleChangeColor} />
 
       {/* Size filter */}
-      <Size value={filterSize} />
+      <Size value={sizeItems} setValue={handleChangeSize} />
 
       <Dress data={dressList} />
     </div>

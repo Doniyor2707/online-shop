@@ -1,7 +1,8 @@
-import styles from "./color.module.css"
+import { Check } from "@mui/icons-material";
+import styles from "./color.module.css";
 import { memo, useCallback } from "react";
 
-const ColorItem = ({ colorVal, id, title, setValue,isChecked }) => {
+const ColorItem = ({ colorVal, id, title, setValue, isChecked }) => {
   //handle checkbox
   const handleCheckbox = useCallback(
     (event) => {
@@ -28,7 +29,9 @@ const ColorItem = ({ colorVal, id, title, setValue,isChecked }) => {
         checked={isChecked}
         onChange={handleCheckbox}
       />
-      <div className={styles.colorBox} style={{ background: colorVal }}></div>
+      <div className={styles.colorBox} style={{ background: colorVal }}>
+        <Check className={styles.colorBoxIcon} />
+      </div>
       <p className={styles.checkBoxLabel}>{title}</p>
     </label>
   );
