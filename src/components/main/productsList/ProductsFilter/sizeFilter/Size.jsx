@@ -1,10 +1,16 @@
-import { Button, Collapse, Grid } from "@mui/material";
+// mui components
+import {Collapse, Grid } from "@mui/material";
+// import styles
 import styles from "./size.module.css";
-import Data from "../openClose/data/Data";
+// import react re-rendered
 import { memo, useCallback, useState } from "react";
+// components
 import SizeItems from "./SizeItems";
+import Data from "../openClose/data/Data";
 
 const Size = ({ value, setValue, isLoading }) => {
+  
+  // collapse state
   const [open, setOpen] = useState(true);
 
   // handle Size
@@ -18,6 +24,7 @@ const Size = ({ value, setValue, isLoading }) => {
   return (
     <>
       <div className={styles.sizeFilter}>
+        {/* Data comp */}
         <Data open={open} setOpen={setOpen} value={"Size"} />
       </div>
       {isLoading ? (
@@ -25,6 +32,7 @@ const Size = ({ value, setValue, isLoading }) => {
       ) : !value.length ? (
         <p>Not found</p>
       ) : (
+        // collpase 
         <Collapse in={open} timeout="auto" unmountOnExit>
           <Grid container className={styles.filterSize}>
             {value.map((size) => (

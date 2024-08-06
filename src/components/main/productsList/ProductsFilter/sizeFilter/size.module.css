@@ -18,3 +18,45 @@
   width: 36px;
   height: 36px;
 }
+.checkBox {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  z-index: 0;
+}
+
+.checkBoxInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: -1;
+}
+
+.checkBoxInput:checked + .box {
+  background: #8a33fd;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border: 1px solid #bebcbd;
+  border-radius: 8px;
+  width: 61px;
+  height: 32px;
+  opacity: 0.8;
+}
+
+.checkBoxLabel {
+  font-family: var(--pr-family);
+  font-weight: 600;
+  font-size: 14px;
+  color: #3c4242;
+}
+
+.checkBoxInput:checked + .box .checkBoxLabel {
+  color: #fff;
+}

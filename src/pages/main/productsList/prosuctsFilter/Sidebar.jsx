@@ -1,13 +1,17 @@
+// styles css import
 import styles from "./sideBar.module.css";
+// components
 import Title from "../../../../components/main/productsList/ProductsFilter/siderbarFilterTitle/Title";
 import SiteList from "../../../../components/main/productsList/ProductsFilter/lists/SiteList";
 import SliderPrice from "../../../../components/main/productsList/ProductsFilter/sideSlider/Slider";
 import FilterColor from "../../../../components/main/productsList/ProductsFilter/filterColors/FilterColor";
 import Size from "../../../../components/main/productsList/ProductsFilter/sizeFilter/Size";
 import Dress from "../../../../components/main/productsList/ProductsFilter/dressList/Dress";
+// import react
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+// color data
 const filterColors = [
   {
     id: 1,
@@ -84,54 +88,56 @@ const filterColors = [
   },
 ];
 
+// size data
 const filterSize = [
   {
-    id: 1,
+    id: `size${1}`,
     label: "XXS",
-    isCheckedSize:false,
+    isCheckedSize: false,
   },
   {
-    id: 2,
+    id: `size${2}`,
     label: "XL",
-    isCheckedSize:false,
+    isCheckedSize: false,
   },
   {
-    id: 3,
+    id: `size${3}`,
     label: "XS",
-    isCheckedSize:false,
+    isCheckedSize: false,
   },
   {
-    id: 4,
+    id: `size${4}`,
     label: "S",
-    isCheckedSize:false,
+    isCheckedSize: false,
   },
   {
-    id: 5,
+    id: `size${5}`,
     label: "M",
-    isCheckedSize:false,
+    isCheckedSize: false,
   },
   {
-    id: 6,
+    id: `size${6}`,
     label: "L",
-    isCheckedSize:false,
+    isCheckedSize: false,
   },
   {
-    id: 7,
+    id: `size${7}`,
     label: "XXL",
-    isCheckedSize:false,
+    isCheckedSize: false,
   },
   {
-    id: 8,
+    id: `size${8}`,
     label: "3XL",
-    isCheckedSize:false,
+    isCheckedSize: false,
   },
   {
-    id: 9,
+    id: `size${9}`,
     label: "4XL",
-    isCheckedSize:false,
+    isCheckedSize: false,
   },
 ];
 
+// dress data
 const dressList = [
   {
     id: 1,
@@ -162,16 +168,16 @@ const dressList = [
 const Sidebar = ({ val }) => {
   // state
   const [price, setPrice] = useState([60, 600]);
-  // color items
+  // state colors
   const [colorItems, setColorItems] = useState(filterColors);
 
-  const [sizeItems, setSizeItems] = useState(filterSize)
+  // state size
+  const [sizeItems, setSizeItems] = useState(filterSize);
 
   // search params
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Handel color set
-
   const handleSetColorToParams = useCallback(
     (arrKeys) => {
       const oldParams = searchParams.get("query");
@@ -189,6 +195,25 @@ const Sidebar = ({ val }) => {
     [setSearchParams, searchParams]
   );
 
+  // handle set size
+  const handleSetSizeToParams = useCallback(
+    (arrKeys) => {
+      const oldParams = searchParams.get("query");
+
+      if (!oldParams && oldParams !== null) {
+        setSearchParams({});
+        return;
+      }
+
+      const queryData = JSON.parse(oldParams);
+
+      const setData = JSON.stringify({ ...queryData, size: arrKeys });
+      setSearchParams({ query: setData });
+    },
+    [setSearchParams, searchParams]
+  );
+
+  // handle active color
   const handleChangeColorActive = useCallback((arrKeys) => {
     setColorItems((prev) => {
       return prev.map((color) => ({
@@ -198,22 +223,35 @@ const Sidebar = ({ val }) => {
     });
   }, []);
 
+  // handle active size
+  const handleChangeSizeActive = useCallback((arrKeys) => {
+    setSizeItems((prev) => {
+      return prev.map((size) => ({
+        ...size,
+        isCheckedSize: arrKeys.includes(size.label),
+      }));
+    });
+  }, []);
+
+  // Query params
   useEffect(() => {
-    // Query params
     const query = searchParams.get("query");
-    
-    
+
     if (!query) return () => null;
 
-    const { price, colors } = JSON.parse(query);
-      // price
+    const { price, colors, size } = JSON.parse(query);
+    // price
     if (price && price.length) setPrice(price.map((item) => Number(item)));
 
     // colors
     if (colors && colors.length) {
       handleChangeColorActive(colors);
     }
-  }, [searchParams, handleChangeColorActive]);
+    // size
+    if (size && size.length) {
+      handleChangeSizeActive(size);
+    }
+  }, [searchParams, handleChangeColorActive, handleChangeSizeActive]);
 
   // handle change price
   const handleChangePrice = useCallback(
@@ -234,7 +272,6 @@ const Sidebar = ({ val }) => {
   );
 
   // handle change color
-
   const handleChangeColor = useCallback(
     (color) => {
       const data = [...colorItems];
@@ -255,10 +292,26 @@ const Sidebar = ({ val }) => {
     [colorItems, handleSetColorToParams]
   );
 
+  // handle change size
   const handleChangeSize = useCallback(
     (size) => {
-      console.log(size);
-  },[sizeItems]);
+      const data = [...sizeItems];
+
+      const index = sizeItems.findIndex((item) => item.id === size.id);
+      if (index === -1) return console.error("Not Found");
+
+      data[index] = size;
+
+      const arrKeys = data
+        .filter((size) => size.isCheckedSize)
+        .map((size) => size.label);
+
+      handleSetSizeToParams(arrKeys);
+
+      setSizeItems(data);
+    },
+    [sizeItems, handleSetSizeToParams]
+  );
 
   return (
     <div className={styles.sidebar}>
@@ -277,6 +330,7 @@ const Sidebar = ({ val }) => {
       {/* Size filter */}
       <Size value={sizeItems} setValue={handleChangeSize} />
 
+      {/* Dress filter */}
       <Dress data={dressList} />
     </div>
   );

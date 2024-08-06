@@ -1,7 +1,8 @@
 import { memo, useCallback } from "react";
+import styles from "./size.module.css";
 
 const SizeItems = ({ label, id, setValue, isCheckedSize }) => {
-  const handleCheckboxSize = useCallback(
+  const handleCheckbox = useCallback(
     (event) => {
       const checked = event.target.checked;
 
@@ -15,15 +16,18 @@ const SizeItems = ({ label, id, setValue, isCheckedSize }) => {
   );
 
   return (
-    <label htmlFor={`size-${id}`}>
+    <label htmlFor={`size-${id}`} className={styles.checkBox}>
       <input
         name={`size-${id}`}
         type="checkbox"
+        className={styles.checkBoxInput}
         id={`size-${id}`}
         checked={isCheckedSize}
-        onChange={handleCheckboxSize}
+        onChange={handleCheckbox}
       />
-      <div>{label}</div>
+      <div className={styles.box}>
+        <p className={styles.checkBoxLabel}>{label}</p>
+      </div>
     </label>
   );
 };
