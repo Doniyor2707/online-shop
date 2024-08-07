@@ -12,7 +12,7 @@ const SizeItems = ({ label, id, setValue, isCheckedSize }) => {
         isCheckedSize: checked,
       });
     },
-    [id, label, isCheckedSize, setValue]
+    [id, label, setValue]
   );
 
   return (
