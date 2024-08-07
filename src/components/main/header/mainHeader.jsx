@@ -2,7 +2,7 @@ import styles from "./MainHeader.module.css";
 import Logo from "../../../assets/Icon/Logo.svg";
 import { Link } from "react-router-dom";
 import SearchInput from "./searchBox/SearchInput";
-import { IconButton } from "@mui/material";
+import { Badge, IconButton } from "@mui/material";
 import {
   FavoriteBorderOutlined,
   PermIdentityOutlined,
@@ -10,6 +10,7 @@ import {
 } from "@mui/icons-material";
 import { useCallback, useState } from "react";
 import { publicRoutes } from "../../../constans/path";
+import { useSelector } from "react-redux";
 
 const MainHeader = ({ data }) => {
   // state
@@ -19,6 +20,8 @@ const MainHeader = ({ data }) => {
   const handleChangeSearch = useCallback((val) => {
     setSearchVal(val);
   }, []);
+
+  const counter = useSelector((store) => store.counter);
 
   return (
     <div className={styles.header}>
@@ -46,9 +49,11 @@ const MainHeader = ({ data }) => {
           <IconButton aria-label="Favourites">
             <FavoriteBorderOutlined />
           </IconButton>
-          <IconButton aria-label="Favourites">
-            <PermIdentityOutlined />
-          </IconButton>
+          <Badge badgeContent={counter.count} color="primary">
+            <IconButton aria-label="Favourites">
+              <PermIdentityOutlined />
+            </IconButton>
+          </Badge>
           <IconButton aria-label="Favourites">
             <ShoppingCartOutlined />
           </IconButton>
