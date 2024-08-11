@@ -165,7 +165,7 @@ const dressList = [
   },
 ];
 
-const Sidebar = ({ val }) => {
+const FilterPanel = ({ val }) => {
   // state
   const [price, setPrice] = useState([60, 600]);
   // state colors
@@ -336,4 +336,4 @@ const Sidebar = ({ val }) => {
   );
 };
 
-export default Sidebar;
+export default FilterPanel;

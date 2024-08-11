@@ -1,9 +1,11 @@
 import styles from "./productsList.module.css";
 import { Grid } from "@mui/material";
-import Sidebar from "./prosuctsFilter/Sidebar";
+import FilterPanel from "./prosuctsFilter/FilterPanel";
 import ProductsSection from "./productsSections/ProductsSection";
+import { useDispatch } from "react-redux";
 
 const ProductsList = () => {
+  // dress filter
   const filterData = [
     {
       id: 1,
@@ -47,12 +49,12 @@ const ProductsList = () => {
     <Grid container className={styles.woman}>
       {/* sidebar */}
       <Grid item md={3}>
-        <Sidebar val={filterData} />
+        <FilterPanel val={filterData} />
       </Grid>
 
       {/* Products body */}
       <Grid item md={9}>
-       <ProductsSection/>
+        <ProductsSection />
       </Grid>
     </Grid>
   );

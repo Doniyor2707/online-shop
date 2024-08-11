@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counter from "./services/counter";
+import { devmode } from "../util/config";
+import basketSlice from "./services/basket/basketSlice";
+import favorite from "./services/favorite/favorite";
 
-const store = configureStore({
-    reducer: {
-        counter, 
-    },
-}); 
+export const store = configureStore({
+  reducer: {
+    basket: basketSlice,
+    favorite: favorite
+  },
+  devTools: devmode,
+});
 
 export default store

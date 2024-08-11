@@ -10,7 +10,6 @@ import {
 } from "@mui/icons-material";
 import { useCallback, useState } from "react";
 import { publicRoutes } from "../../../constans/path";
-import { useSelector } from "react-redux";
 
 const MainHeader = ({ data }) => {
   // state
@@ -21,7 +20,6 @@ const MainHeader = ({ data }) => {
     setSearchVal(val);
   }, []);
 
-  const counter = useSelector((store) => store.counter);
 
   return (
     <div className={styles.header}>
@@ -49,7 +47,7 @@ const MainHeader = ({ data }) => {
           <IconButton aria-label="Favourites">
             <FavoriteBorderOutlined />
           </IconButton>
-          <Badge badgeContent={counter.count} color="primary">
+          <Badge>
             <IconButton aria-label="Favourites">
               <PermIdentityOutlined />
             </IconButton>
