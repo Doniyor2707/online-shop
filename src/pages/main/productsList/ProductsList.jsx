@@ -2,7 +2,6 @@ import styles from "./productsList.module.css";
 import { Grid } from "@mui/material";
 import FilterPanel from "./prosuctsFilter/FilterPanel";
 import ProductsSection from "./productsSections/ProductsSection";
-import { useDispatch } from "react-redux";
 
 const ProductsList = () => {
   // dress filter

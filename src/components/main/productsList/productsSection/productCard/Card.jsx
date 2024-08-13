@@ -1,42 +1,47 @@
 import styles from "./card.module.css";
 import img from "../../../../../assets/img/cardImg.jpg";
-import { Link } from "react-router-dom";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addFavorite,
+  removeFavorite,
+  selectedFavoriteProductsById,
+} from "../../../../../app/services/favorite/favorite";
 
-const Card = ({
-  setValue,
-  productId,
-  title,
-  label,
-  price,
-  isFavoriteChecked,
-}) => {
-  // state
-  const [isFavorite, setIsFavorite] = useState(isFavoriteChecked);
+const Card = ({ id, title, label, price }) => {
+  // dispatch
+  const dispatch = useDispatch();
 
-  // handle cilck favorite
-  const handlClick = () => {
-    setIsFavorite((prev) => !prev);
-  };
+  // favorite
+  const favoriteItem = useSelector((state) =>
+    selectedFavoriteProductsById(state, id)
+  );
+  
 
-  useEffect(() => {
-    setValue({
-      productId,
-      title,
-      label,
-      price,
-      isFavoriteChecked: isFavorite,
-    });
-  }, [setValue, isFavorite,title,price,label]);
+  const handleFavoriteClick = useCallback(() => {
+    if (!favoriteItem) {
+      dispatch(
+        addFavorite({
+          id,
+          title,
+          label,
+          price,
+        })
+      );
+    } else {
+      dispatch(removeFavorite({ productId: id }));
+    }
+  }, [id, title, label, price, favoriteItem]);
+  // dispatch(addFavorite())
 
   return (
-    <div className={styles.card} key={productId}>
+    <div className={styles.card} key={id}>
       {/* image */}
       <div className={styles.cardImg}>
         <img src={img} alt="img" />
-        <div className={styles.like} onClick={handlClick}>
-          <FavoriteIcon color={isFavorite ? "error" : "action"} />
+        <div className={styles.like} onClick={handleFavoriteClick}>
+          <FavoriteIcon color={Boolean(favoriteItem) ? "error" : "action"} />
         </div>
       </div>
 

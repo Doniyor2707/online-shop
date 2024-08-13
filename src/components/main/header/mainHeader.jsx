@@ -10,6 +10,8 @@ import {
 } from "@mui/icons-material";
 import { useCallback, useState } from "react";
 import { publicRoutes } from "../../../constans/path";
+import { useSelector } from "react-redux";
+import { selectedFavoriteProducts } from "../../../app/services/favorite/favorite";
 
 const MainHeader = ({ data }) => {
   // state
@@ -20,6 +22,7 @@ const MainHeader = ({ data }) => {
     setSearchVal(val);
   }, []);
 
+  const products = useSelector(selectedFavoriteProducts);  
 
   return (
     <div className={styles.header}>
@@ -45,7 +48,9 @@ const MainHeader = ({ data }) => {
         {/* 3 btn */}
         <div>
           <IconButton aria-label="Favourites">
-            <FavoriteBorderOutlined />
+            <Badge badgeContent={products.length} color="primary">
+              <FavoriteBorderOutlined />
+            </Badge>
           </IconButton>
           <Badge>
             <IconButton aria-label="Favourites">
