@@ -12,12 +12,12 @@ import {
 const Card = ({ id, title, label, price }) => {
   // dispatch
   const dispatch = useDispatch();
-
   // favorite
   const favoriteItem = useSelector((state) =>
-    selectedFavoriteProductsById(state, id)
+    selectedFavoriteProductsById(state,id) // 1
   );
-  
+
+ 
 
   const handleFavoriteClick = useCallback(() => {
     if (!favoriteItem) {
@@ -33,7 +33,6 @@ const Card = ({ id, title, label, price }) => {
       dispatch(removeFavorite({ productId: id }));
     }
   }, [id, title, label, price, favoriteItem]);
-  // dispatch(addFavorite())
 
   return (
     <div className={styles.card} key={id}>

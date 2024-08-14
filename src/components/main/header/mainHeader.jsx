@@ -3,8 +3,8 @@ import Logo from "../../../assets/Icon/Logo.svg";
 import { Link } from "react-router-dom";
 import SearchInput from "./searchBox/SearchInput";
 import { Badge, IconButton } from "@mui/material";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import {
-  FavoriteBorderOutlined,
   PermIdentityOutlined,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
@@ -13,7 +13,7 @@ import { publicRoutes } from "../../../constans/path";
 import { useSelector } from "react-redux";
 import { selectedFavoriteProducts } from "../../../app/services/favorite/favorite";
 
-const MainHeader = ({ data }) => {
+const MainHeader = ({ data,onOpenFavourite }) => {
   // state
   const [searchVal, setSearchVal] = useState("");
 
@@ -22,7 +22,12 @@ const MainHeader = ({ data }) => {
     setSearchVal(val);
   }, []);
 
-  const products = useSelector(selectedFavoriteProducts);  
+  const products = useSelector(selectedFavoriteProducts);
+
+  // Handle open favourite drawer
+  const handleOpenFavouriteDrawer = useCallback(() => {
+    onOpenFavourite();
+  }, [onOpenFavourite]);
 
   return (
     <div className={styles.header}>
@@ -46,19 +51,17 @@ const MainHeader = ({ data }) => {
         <SearchInput value={searchVal} setValue={handleChangeSearch} />
 
         {/* 3 btn */}
-        <div>
-          <IconButton aria-label="Favourites">
+        <div className={styles.favorites}>
+          <IconButton onClick={handleOpenFavouriteDrawer}>
             <Badge badgeContent={products.length} color="primary">
-              <FavoriteBorderOutlined />
+              <FavoriteBorderOutlinedIcon color="primary" />
             </Badge>
           </IconButton>
-          <Badge>
-            <IconButton aria-label="Favourites">
-              <PermIdentityOutlined />
-            </IconButton>
-          </Badge>
-          <IconButton aria-label="Favourites">
-            <ShoppingCartOutlined />
+          <IconButton>
+            <PermIdentityOutlined color="primary" />
+          </IconButton>
+          <IconButton>
+            <ShoppingCartOutlined color="primary" />
           </IconButton>
         </div>
       </div>
