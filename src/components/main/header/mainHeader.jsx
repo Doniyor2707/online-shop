@@ -12,8 +12,9 @@ import { useCallback, useState } from "react";
 import { publicRoutes } from "../../../constans/path";
 import { useSelector } from "react-redux";
 import { selectedFavoriteProducts } from "../../../app/services/favorite/favorite";
+import { selectedBasketProducts } from "../../../app/services/basket/basketSlice";
 
-const MainHeader = ({ data,onOpenFavourite }) => {
+const MainHeader = ({ data, onOpenFavourite, onOpenBasket }) => {
   // state
   const [searchVal, setSearchVal] = useState("");
 
@@ -22,12 +23,20 @@ const MainHeader = ({ data,onOpenFavourite }) => {
     setSearchVal(val);
   }, []);
 
-  const products = useSelector(selectedFavoriteProducts);
+  // favorite length
+  const productsFavorite = useSelector(selectedFavoriteProducts);
+
+  // basket length
+  const productsBasket = useSelector(selectedBasketProducts);
 
   // Handle open favourite drawer
   const handleOpenFavouriteDrawer = useCallback(() => {
     onOpenFavourite();
   }, [onOpenFavourite]);
+
+  const handleOpenBasketDrawer = useCallback(() => {
+    onOpenBasket();
+  }, [onOpenBasket]);
 
   return (
     <div className={styles.header}>
@@ -53,15 +62,17 @@ const MainHeader = ({ data,onOpenFavourite }) => {
         {/* 3 btn */}
         <div className={styles.favorites}>
           <IconButton onClick={handleOpenFavouriteDrawer}>
-            <Badge badgeContent={products.length} color="primary">
+            <Badge badgeContent={productsFavorite.length} color="primary">
               <FavoriteBorderOutlinedIcon color="primary" />
             </Badge>
           </IconButton>
           <IconButton>
             <PermIdentityOutlined color="primary" />
           </IconButton>
-          <IconButton>
-            <ShoppingCartOutlined color="primary" />
+          <IconButton onClick={handleOpenBasketDrawer}>
+            <Badge badgeContent={productsBasket.length} color="primary">
+              <ShoppingCartOutlined color="primary" />
+            </Badge>
           </IconButton>
         </div>
       </div>

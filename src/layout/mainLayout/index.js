@@ -3,6 +3,7 @@ import MainHeader from "../../components/main/header/mainHeader";
 import { publicRoutes } from "../../constans/path";
 import FavoriteDrawer from "../../components/main/favoriteDrawer/FavoriteDrawer";
 import { useCallback, useState } from "react";
+import BasketDrawer from "../../components/main/basketDrawer/BasketDrawer";
 
 const data = [
   {
@@ -37,19 +38,28 @@ const data = [
 ];
 
 const MainLayout = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenFav, setIsOpenFav] = useState(false);
+  const [isOpenBas, setIsOpenBas] = useState(false);
 
   // Favourite Drawer
-  const handleOpen = useCallback(() => setIsOpen(true), []);
-  const handleClose = useCallback(() => setIsOpen(false), []);
+  const handleOpenFav = useCallback(() => setIsOpenFav(true), []);
+  const handleCloseFav = useCallback(() => setIsOpenFav(false), []);
+
+
+  // Favourite Drawer
+  const handleOpenBas = useCallback(() => setIsOpenBas(true), []);
+  const handleCloseBas = useCallback(() => setIsOpenBas(false), []);
 
   return (
     <div className="container">
       {/* Favorite drawer */}
-      <FavoriteDrawer isOpen={isOpen} onClose={handleClose} />
+      <FavoriteDrawer isOpen={isOpenFav} onClose={handleCloseFav} />
+
+      {/* Basket Drawer */}
+      <BasketDrawer isOpen={isOpenBas} onClose={handleCloseBas} />
 
       {/* Headres */}
-      <MainHeader data={data} onOpenFavourite={handleOpen}/>
+      <MainHeader data={data} onOpenFavourite={handleOpenFav} onOpenBasket={handleOpenBas}/>
 
       <Outlet />
     </div>
