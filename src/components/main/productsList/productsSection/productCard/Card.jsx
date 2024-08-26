@@ -1,5 +1,4 @@
 import styles from "./card.module.css";
-import img from "../../../../../assets/img/cardImg.jpg";
 import { memo, useCallback } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,12 +15,9 @@ import {
 } from "../../../../../app/services/basket/basketSlice";
 
 import { IconButton, Stack, Typography } from "@mui/material";
-import {
-  AddShoppingCart,
-  RemoveShoppingCart,
-} from "@mui/icons-material";
+import { AddShoppingCart, RemoveShoppingCart } from "@mui/icons-material";
 
-const Card = ({ id, title, label, price }) => {
+const Card = ({ id, title, image, price }) => {
   // dispatch
   const dispatch = useDispatch();
   // favorite
@@ -39,14 +35,13 @@ const Card = ({ id, title, label, price }) => {
         addFavorite({
           id,
           title,
-          label,
           price,
         })
       );
     } else {
       dispatch(removeFavorite({ productId: id }));
     }
-  }, [id, title, label, price, favoriteItem,dispatch]);
+  }, [id, title, price, favoriteItem, dispatch]);
 
   const handleAddBasket = useCallback(() => {
     dispatch(
@@ -56,7 +51,7 @@ const Card = ({ id, title, label, price }) => {
         price,
       })
     );
-  },[dispatch,id,price,title]);
+  }, [dispatch, id, price, title]);
 
   const handleBasketItem = useCallback(() => {
     dispatch(
@@ -70,7 +65,7 @@ const Card = ({ id, title, label, price }) => {
     <div className={styles.card} key={id}>
       {/* image */}
       <div className={styles.cardImg}>
-        <img src={img} alt="img" />
+        <img src={image} alt="img" />
         <div className={styles.like} onClick={handleFavoriteClick}>
           <FavoriteIcon color={Boolean(favoriteItem) ? "error" : "action"} />
         </div>
@@ -78,12 +73,15 @@ const Card = ({ id, title, label, price }) => {
 
       <div className={styles.cardTitle}>
         <div className={styles.title}>
-          <h4>{title}</h4>
-          <p>{label}</p>
+          {title.length > 10 ? (
+            <Typography>{title.substring(0, 20)}...</Typography>
+          ) : (
+            <Typography>{title}...</Typography>
+          )}
         </div>
         <Stack direction={"column"} alignItems={"flex-end"}>
           <Typography variant="h6" color="text.primary" sx={{ mt: 2 }}>
-            {price}
+            {price}$
           </Typography>
           {!basketItem ? (
             <IconButton

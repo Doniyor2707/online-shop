@@ -2,30 +2,23 @@ import Title from "../../../../components/main/productsList/productsSection/prod
 import Card from "../../../../components/main/productsList/productsSection/productCard/Card";
 import styles from "./productsSection.module.css";
 import { Grid } from "@mui/material";
+import { useGetAllProductsQuery } from "../../../../app/services/productsApi/productsApi";
+import { useMemo } from "react";
 
-const productsCard = [
-  {
-    id: 10,
-    title: "Black Sweatshirt with",
-    label: "Jhanvi’s Brand",
-    price: "123$",    
-  },
-  {
-    id: 20,
-    title: "white T-shirt",
-    label: "Hele'ns Brand",
-    price: "12$",
-  },
-  {
-    id: 30,
-    title: "Levender Hoodie white",
-    label: "Nike's Brand",
-    price: "100$",
-  },
-];
 
 const ProductsSection = () => {
-  
+  // API
+  const allProductsRes = useGetAllProductsQuery();
+
+  // Memo
+  const allProductsData = useMemo(() => {
+    if (allProductsRes.data && allProductsRes.data.length > 0) {
+      return allProductsRes.data;
+    }
+
+    return [];
+  }, [allProductsRes.data]);
+
   return (
     <Grid className={styles.productsSection}>
       {/* Title */}
@@ -33,11 +26,16 @@ const ProductsSection = () => {
 
       {/* Card list */}
       <Grid container spacing={2}>
-        {productsCard.map((product) => (
-          <Grid item xs={12} sm={6} md={4} key={product.id}>
-            <Card {...product}/>
-          </Grid>
-        ))}
+        {allProductsRes.isLoading || allProductsRes.isFetching ?(
+            "Products loading..." 
+        ):(
+          allProductsData.map((product) => (
+            <Grid item xs={12} sm={6} md={4} key={product.id}>
+              <Card {...product} />
+            </Grid>
+          ))
+        )}
+       
       </Grid>
     </Grid>
   );

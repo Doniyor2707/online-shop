@@ -3,47 +3,48 @@ import { Grid } from "@mui/material";
 import FilterPanel from "./prosuctsFilter/FilterPanel";
 import ProductsSection from "./productsSections/ProductsSection";
 
-const ProductsList = () => {
-  // dress filter
-  const filterData = [
-    {
-      id: 1,
-      label: "Tops",
-    },
-    {
-      id: 2,
-      label: "Printed T-shirts",
-    },
-    {
-      id: 3,
-      label: "Plain T-shirts",
-    },
-    {
-      id: 4,
-      label: "Kurti",
-    },
-    {
-      id: 5,
-      label: "Boxers",
-    },
-    {
-      id: 6,
-      label: "Full sleeve T-shirts",
-    },
-    {
-      id: 7,
-      label: "Joggers",
-    },
-    {
-      id: 8,
-      label: "Payjamas",
-    },
-    {
-      id: 9,
-      label: "Jeans",
-    },
-  ];
+ // dress filter
+ const filterData = [
+  {
+    id: 1,
+    label: "Tops",
+  },
+  {
+    id: 2,
+    label: "Printed T-shirts",
+  },
+  {
+    id: 3,
+    label: "Plain T-shirts",
+  },
+  {
+    id: 4,
+    label: "Kurti",
+  },
+  {
+    id: 5,
+    label: "Boxers",
+  },
+  {
+    id: 6,
+    label: "Full sleeve T-shirts",
+  },
+  {
+    id: 7,
+    label: "Joggers",
+  },
+  {
+    id: 8,
+    label: "Payjamas",
+  },
+  {
+    id: 9,
+    label: "Jeans",
+  },
+];
 
+const ProductsList = () => {
+  
   return (
     <Grid container className={styles.woman}>
       {/* sidebar */}

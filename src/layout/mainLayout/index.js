@@ -2,42 +2,14 @@ import { Outlet } from "react-router-dom";
 import MainHeader from "../../components/main/header/mainHeader";
 import { publicRoutes } from "../../constans/path";
 import FavoriteDrawer from "../../components/main/favoriteDrawer/FavoriteDrawer";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import BasketDrawer from "../../components/main/basketDrawer/BasketDrawer";
+import { useGetAllProductsQuery } from "../../app/services/productsApi/productsApi";
 
-const data = [
-  {
-    key: 1,
-    title: "Shop",
-    to: publicRoutes.home,
-  },
 
-  {
-    key: 2,
-    title: "Men",
-    to: publicRoutes.home,
-  },
-
-  {
-    key: 3,
-    title: "Women",
-    to: publicRoutes.men,
-  },
-
-  {
-    key: 4,
-    title: "Combos",
-    to: publicRoutes.home,
-  },
-
-  {
-    key: 5,
-    title: "Joggers",
-    to: publicRoutes.home,
-  },
-];
 
 const MainLayout = () => {
+  // state
   const [isOpenFav, setIsOpenFav] = useState(false);
   const [isOpenBas, setIsOpenBas] = useState(false);
 
@@ -50,6 +22,16 @@ const MainLayout = () => {
   const handleOpenBas = useCallback(() => setIsOpenBas(true), []);
   const handleCloseBas = useCallback(() => setIsOpenBas(false), []);
 
+  const allCategoryRes = useGetAllProductsQuery();
+  
+
+  const allCategoryData = useMemo(() => {
+    if (allCategoryRes.data && allCategoryRes.data.length > 0) {
+      return allCategoryRes.data;
+    }
+    return [];
+  }, [allCategoryRes.data]);
+
   return (
     <div className="container">
       {/* Favorite drawer */}
@@ -59,7 +41,7 @@ const MainLayout = () => {
       <BasketDrawer isOpen={isOpenBas} onClose={handleCloseBas} />
 
       {/* Headres */}
-      <MainHeader data={data} onOpenFavourite={handleOpenFav} onOpenBasket={handleOpenBas}/>
+      <MainHeader data={allCategoryData} dataRes = {allCategoryRes} onOpenFavourite={handleOpenFav} onOpenBasket={handleOpenBas}/>
 
       <Outlet />
     </div>

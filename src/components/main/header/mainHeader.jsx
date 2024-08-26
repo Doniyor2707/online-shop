@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { selectedFavoriteProducts } from "../../../app/services/favorite/favorite";
 import { selectedBasketProducts } from "../../../app/services/basket/basketSlice";
 
-const MainHeader = ({ data, onOpenFavourite, onOpenBasket }) => {
+const MainHeader = ({ data, dataRes, onOpenFavourite, onOpenBasket }) => {
   // state
   const [searchVal, setSearchVal] = useState("");
 
@@ -38,6 +38,9 @@ const MainHeader = ({ data, onOpenFavourite, onOpenBasket }) => {
     onOpenBasket();
   }, [onOpenBasket]);
 
+
+  console.log(data);
+  
   return (
     <div className={styles.header}>
       <div className={styles.body}>
@@ -47,13 +50,15 @@ const MainHeader = ({ data, onOpenFavourite, onOpenBasket }) => {
         </Link>
         {/* List */}
         <ul className={styles.lists}>
-          {data.map((item) => (
-            <li className={styles.listItem} key={item.key}>
-              <Link className={styles.listItemLink} to={item.to}>
-                {item.title}
-              </Link>
-            </li>
-          ))}
+          {dataRes.isLoading || dataRes.isFetching
+            ? "Loading..."
+            : data.map((item) => (
+                <li className={styles.listItem} key={item.id}>
+                  <Link className={styles.listItemLink} to={item.to}>
+                    {item.category}
+                  </Link>
+                </li>
+              ))}
         </ul>
 
         {/* Search Input */}
