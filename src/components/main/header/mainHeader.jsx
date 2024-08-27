@@ -38,9 +38,6 @@ const MainHeader = ({ data, dataRes, onOpenFavourite, onOpenBasket }) => {
     onOpenBasket();
   }, [onOpenBasket]);
 
-
-  console.log(data);
-  
   return (
     <div className={styles.header}>
       <div className={styles.body}>
@@ -53,9 +50,9 @@ const MainHeader = ({ data, dataRes, onOpenFavourite, onOpenBasket }) => {
           {dataRes.isLoading || dataRes.isFetching
             ? "Loading..."
             : data.map((item) => (
-                <li className={styles.listItem} key={item.id}>
+                <li className={styles.listItem} key={item}>
                   <Link className={styles.listItemLink} to={item.to}>
-                    {item.category}
+                    {item}
                   </Link>
                 </li>
               ))}

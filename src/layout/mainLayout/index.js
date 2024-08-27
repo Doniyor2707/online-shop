@@ -1,10 +1,9 @@
 import { Outlet } from "react-router-dom";
 import MainHeader from "../../components/main/header/mainHeader";
-import { publicRoutes } from "../../constans/path";
 import FavoriteDrawer from "../../components/main/favoriteDrawer/FavoriteDrawer";
 import { useCallback, useMemo, useState } from "react";
 import BasketDrawer from "../../components/main/basketDrawer/BasketDrawer";
-import { useGetAllProductsQuery } from "../../app/services/productsApi/productsApi";
+import { useGetAllCategoryQuery } from "../../app/services/category/categoryApi";
 
 
 
@@ -22,7 +21,7 @@ const MainLayout = () => {
   const handleOpenBas = useCallback(() => setIsOpenBas(true), []);
   const handleCloseBas = useCallback(() => setIsOpenBas(false), []);
 
-  const allCategoryRes = useGetAllProductsQuery();
+  const allCategoryRes = useGetAllCategoryQuery();
   
 
   const allCategoryData = useMemo(() => {
@@ -31,6 +30,8 @@ const MainLayout = () => {
     }
     return [];
   }, [allCategoryRes.data]);
+
+  
 
   return (
     <div className="container">

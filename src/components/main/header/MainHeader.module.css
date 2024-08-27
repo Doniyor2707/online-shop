@@ -29,9 +29,10 @@
 
 .listItemLink {
   text-decoration: none;
+  text-transform: uppercase;
   padding: 5px;
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 18px;
+  font-size: 14px;
   color: var(--gr-color);
 }

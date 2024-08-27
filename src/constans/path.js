@@ -9,7 +9,11 @@ const authRoutes = {
 
 const publicRoutes = {
   home: "/",
-  men: "/product"
+  men: "/product",
+  electronics: "/electronics",
+  jewelery: "/jewelery",
+  mensClothing: "/mensClothing",
+  womensClothing: "/womensClothing",
 };
 
 export { authRoutes, publicRoutes };

@@ -6,8 +6,8 @@ const products_api = {
 };
 
 const category_api = {
-  allCategory: "/category",
-  categoryItem: (item) => `/category/${item}`,
+  allCategory: "/products/categories",
+  categoryItem: (item) => `/products/categories/${item}`,
 };
 
 export { products_api, category_api };
