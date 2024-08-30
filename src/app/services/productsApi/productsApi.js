@@ -5,13 +5,18 @@ const productsApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     // Get all
     getAllProducts: build.query({
-      query: () => products_api.allProductsGet,
+      query: (category) => 
+      category
+        ?products_api.productGetByCategory(category)
+        :products_api.allProductsGet,
     }),
 
     // Get by id
     getProductById: build.query({
       query: (id) => products_api.productGetById(id),
     }),
+
+  
   }),
 });
 

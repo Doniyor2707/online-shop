@@ -10,6 +10,7 @@
   font-weight: 500;
   font-size: 18px;
   color: #3f4646;
+  text-transform: capitalize;
 }
 
 .titleLink {

@@ -51,7 +51,10 @@ const MainHeader = ({ data, dataRes, onOpenFavourite, onOpenBasket }) => {
             ? "Loading..."
             : data.map((item) => (
                 <li className={styles.listItem} key={item}>
-                  <Link className={styles.listItemLink} to={item.to}>
+                  <Link
+                    className={styles.listItemLink}
+                    to={`/products/list?category=${item}`}
+                  >
                     {item}
                   </Link>
                 </li>

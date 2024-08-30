@@ -15,7 +15,7 @@ const Router = () => {
       {/* Layout */}
       <Route element={<MainLayout />}>
         <Route index path={publicRoutes.home} element={<Home/>}/>
-        <Route path={publicRoutes.men} element={<ProductsList/>}/>
+        <Route path={publicRoutes.productsList} element={<ProductsList/>}/>
       </Route>
     </Routes>
   );

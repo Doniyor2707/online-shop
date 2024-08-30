@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
-import styles from "./title.module.css"
+import styles from "./title.module.css";
 
-const Title = () => {
+const Title = ({ title }) => {
   return (
     <div className={styles.titleBody}>
-      <h1 className={styles.title}>Women’s Clothing</h1>
+      {title ? (
+        <h1 className={styles.title}>{title}</h1>
+      ) : (
+        <h1 className={styles.title}>All</h1>
+      )}
       <div className={styles.titleLink}>
         <Link>New</Link>
         <Link>Recommended</Link>
