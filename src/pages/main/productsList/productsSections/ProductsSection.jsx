@@ -10,8 +10,8 @@ import { useSearchParams } from "react-router-dom";
 const ProductsSection = () => {
 // param
   const [searchVal] = useSearchParams();
-
-  // queryParams
+  
+  // query
   const queryCategoryParams = useMemo(()=> {
     return searchVal.get("category")
   },[searchVal])

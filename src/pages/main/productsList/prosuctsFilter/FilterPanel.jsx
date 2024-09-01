@@ -165,6 +165,8 @@ const dressList = [
   },
 ];
 
+const SEARCH_PARAM_KEY = "filter";
+
 const FilterPanel = ({ val }) => {
   // state
   const [price, setPrice] = useState([60, 600]);
@@ -177,10 +179,25 @@ const FilterPanel = ({ val }) => {
   // search params
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // get filter prams
+  const getFilterParams = useCallback(() => {
+    return searchParams.get(SEARCH_PARAM_KEY);
+  }, [searchParams]);
+  
+  // set new filter params
+  const setFilterParams = useCallback(
+    (params = "") => {
+      const categoryParam = searchParams.getAll("category");
+
+      setSearchParams({ [SEARCH_PARAM_KEY]: params, category: categoryParam });
+    },
+    [searchParams, setSearchParams]
+  );
+
   // Handel color set
   const handleSetColorToParams = useCallback(
     (arrKeys) => {
-      const oldParams = searchParams.get("query");
+      const oldParams = getFilterParams();
 
       if (!oldParams && oldParams !== null) {
         setSearchParams({});
@@ -190,15 +207,15 @@ const FilterPanel = ({ val }) => {
       const queryData = JSON.parse(oldParams);
 
       const setData = JSON.stringify({ ...queryData, colors: arrKeys });
-      setSearchParams({ query: setData });
+      setFilterParams(setData);
     },
-    [setSearchParams, searchParams]
+    [setSearchParams, setFilterParams, getFilterParams]
   );
 
   // handle set size
   const handleSetSizeToParams = useCallback(
     (arrKeys) => {
-      const oldParams = searchParams.get("query");
+      const oldParams = getFilterParams();
 
       if (!oldParams && oldParams !== null) {
         setSearchParams({});
@@ -208,9 +225,9 @@ const FilterPanel = ({ val }) => {
       const queryData = JSON.parse(oldParams);
 
       const setData = JSON.stringify({ ...queryData, size: arrKeys });
-      setSearchParams({ query: setData });
+      setFilterParams(setData);
     },
-    [setSearchParams, searchParams]
+    [setSearchParams, getFilterParams, setFilterParams]
   );
 
   // handle active color
@@ -235,7 +252,7 @@ const FilterPanel = ({ val }) => {
 
   // Query params
   useEffect(() => {
-    const query = searchParams.get("query");
+    const query = getFilterParams();
 
     if (!query) return () => null;
 
@@ -251,12 +268,17 @@ const FilterPanel = ({ val }) => {
     if (size && size.length) {
       handleChangeSizeActive(size);
     }
-  }, [searchParams, handleChangeColorActive, handleChangeSizeActive]);
+  }, [
+    searchParams,
+    getFilterParams,
+    handleChangeColorActive,
+    handleChangeSizeActive,
+  ]);
 
   // handle change price
   const handleChangePrice = useCallback(
     (value) => {
-      const oldParams = searchParams.get("query");
+      const oldParams = getFilterParams();
 
       if (!oldParams && oldParams !== null) {
         setSearchParams({});
@@ -266,9 +288,9 @@ const FilterPanel = ({ val }) => {
       const queryData = JSON.parse(oldParams);
 
       const setData = JSON.stringify({ ...queryData, price: value });
-      setSearchParams({ query: setData });
+      setFilterParams(setData);
     },
-    [setSearchParams, searchParams]
+    [setSearchParams, getFilterParams, setFilterParams]
   );
 
   // handle change color
