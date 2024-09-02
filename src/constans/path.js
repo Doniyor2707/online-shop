@@ -1,9 +1,13 @@
-// auth
 
+// Auth routes
 const authRoutes = {
   login: "/login",
   register: "/register",
+  resetPassword: "/resetPassword",
+  verification: "/verification",
+  createNewPassword: "/createNewPassword",
 };
+
 
 // public...
 

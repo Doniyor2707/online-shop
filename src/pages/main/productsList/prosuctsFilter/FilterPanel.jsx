@@ -211,6 +211,7 @@ const FilterPanel = ({ val }) => {
     },
     [setSearchParams, setFilterParams, getFilterParams]
   );
+  
 
   // handle set size
   const handleSetSizeToParams = useCallback(
