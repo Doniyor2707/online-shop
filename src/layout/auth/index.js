@@ -1,13 +1,16 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Header from "../../components/authValidate/header/Header";
 
 const MainAuth = () => {
   return (
-    <div>
-      MainAuth
-    <Outlet/>
-    </div>
-  )
-}
+    <div className="cotainer">
+      {/* header */}
+      <Header />
 
-export default MainAuth
+      <Outlet />
+    </div>
+  );
+};
+
+export default MainAuth;

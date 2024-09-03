@@ -1,0 +1,25 @@
+.inpUserName {
+  margin-bottom: 30px;
+}
+
+input {
+  border: 1px solid #3c4242;
+  border-radius: 8px;
+  padding: 16px 20px;
+  width: 567px;
+  height: 58px;
+}
+
+input:hover:active {
+  border-color: #8a33fd;
+  outline-color: #8a33fd;
+}
+
+h5 {
+  margin-bottom: 5px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  color: #3c4242;
+}

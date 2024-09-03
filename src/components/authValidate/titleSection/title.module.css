@@ -1,0 +1,27 @@
+.button {
+  border: 1px solid #3c4242;
+  border-radius: 8px;
+  padding: 16px 20px;
+  width: 567px;
+  height: 58px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 22px;
+  text-align: center;
+  color: #8a33fd;
+  cursor: pointer;
+  background-color: #fff;
+  margin-top: 20px;
+}
+
+.button span {
+  margin-right: 15px;
+}
+.title {
+  font-family: var(--second-family);
+  font-weight: 600;
+  font-size: 34px;
+  letter-spacing: 0.02em;
+  color: #333;
+  margin-top: 50px;
+}

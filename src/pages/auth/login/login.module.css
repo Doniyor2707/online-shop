@@ -1,0 +1,20 @@
+.btn {
+  border-radius: 8px;
+  padding: 16px 20px;
+  width: 167px;
+  height: 54px;
+  background: #8a33fd;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.form{ 
+  margin-top: 50px;
+}

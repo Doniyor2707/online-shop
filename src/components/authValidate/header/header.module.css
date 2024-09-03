@@ -1,0 +1,33 @@
+.header {
+  padding: 12px 70px;
+  border-bottom: 1px solid var(--primary--color);
+}
+
+.btn {
+  border-radius: 8px;
+  padding: 12px 48px;
+  width: 140px;
+  height: 46px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+  background: #8a33fd;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.btnOut {
+  border: 1px solid #8a33fd;
+  border-radius: 8px;
+  padding: 12px 35px;
+  width: 156px;
+  height: 46px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  color: #8a33fd;
+  cursor: pointer;
+}
