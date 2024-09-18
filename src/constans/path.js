@@ -1,4 +1,3 @@
-
 // Auth routes
 const authRoutes = {
   login: "/login",
@@ -8,8 +7,7 @@ const authRoutes = {
   createNewPassword: "/createNewPassword",
 };
 
-
-// public...
+// public routes
 
 const publicRoutes = {
   home: "/",
@@ -17,4 +15,11 @@ const publicRoutes = {
   productsDetails: "/products/:productId/details",
 };
 
-export { authRoutes, publicRoutes };
+// admin routes
+const adminRoutes = {
+  home: "/admin",
+  products: "/admin/products",
+  categories: "/admin/categories",
+};
+
+export { authRoutes, publicRoutes, adminRoutes };

@@ -22,5 +22,4 @@ export const authApi = createApi({
   }),
 });
 
-// Export the auto-generated hook for the `login` mutation
 export const { useLoginMutation } = authApi;

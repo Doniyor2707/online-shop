@@ -3,7 +3,7 @@ import { useLoginMutation } from "../../../app/services/authLogin/authSlice";
 // navigate
 import { useNavigate } from "react-router-dom";
 
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import Alert from "@mui/material/Alert";
 // components
 import ImageSection from "../../../components/authValidate/imageSection/ImageSection";
@@ -65,7 +65,7 @@ function Login() {
           <InputUserName value={username} handleUserName={handleUserName} />
           <InputPassword value={password} handlePassword={handlePassword} />
           <button className={styles.btn} type="submit" disabled={isLoading}>
-            {isLoading ? "Logging in..." : "Sign In"}
+            {isLoading ? <CircularProgress sx={{color:"#fff"}} size={22}/> : "Sign In"}
           </button>
           {error && <Alert severity="error" variant="outlined">Login yoki parolda xatolik mavjud {error.data}</Alert>}
         </form>
