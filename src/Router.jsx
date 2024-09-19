@@ -34,7 +34,8 @@ const Router = () => {
       {/* Admin */}
       <Route path={adminRoutes.home} element={<AdminLayout />}>
         <Route path={adminRoutes.home} element={<AdminHome />} />
-        <Route path={adminRoutes.categories} element={<AdminProducts />} />
+        <Route path={adminRoutes.products} element={<AdminProducts />} />
+        <Route path={adminRoutes.categories} element={<p>categories</p>} />     
       </Route>
 
     </Routes>

@@ -1,9 +1,34 @@
-import React from 'react'
+import React, { Suspense } from "react";
+import MainAppBar from "../../components/dashboard/mainAppBar/MainAppBar";
+import DashboardSide from "../../components/dashboard/dashboardSide/DashboardSide";
+import { Outlet } from "react-router-dom";
+import { Stack } from "@mui/material";
+import { useState } from "react";
+
+
 
 const AdminLayout = () => {
-  return (
-    <div>AdminLayout</div>
-  )
-}
 
-export default AdminLayout
+  const [open,setOpen] = useState(true)
+
+  
+  
+  
+  return (
+    <>
+      {/* header */}
+      <MainAppBar setOpen={setOpen}/>
+
+      <Stack flexDirection={"row"}>
+        {/* side */}
+        <DashboardSide open={open}/>
+
+        <Suspense fallback={"Loading..."}>
+          <Outlet />
+        </Suspense>
+      </Stack>
+    </>
+  );
+};
+
+export default AdminLayout;
