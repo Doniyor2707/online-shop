@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { adminRoutes } from "../../../constans/path";
 import { useState } from "react";
 
-const activeData = [
+const listData = [
   {
     key: 1,
     label: "Dashboard",
@@ -35,7 +35,7 @@ const activeData = [
   },
 ];
 
-export default function DashboardSide({ope}) {
+export default function DashboardSide() {
   const [active, setActive] = useState("dashboard");
 
   const handleClick = (val) => {
@@ -44,37 +44,33 @@ export default function DashboardSide({ope}) {
 
   return (
     <>
-      {
-
-        <List
-          sx={{ width: "100%", maxWidth: 260, bgcolor: "background.paper" }}
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Overview
-            </ListSubheader>
-          }
-          dense
-        >
-          {activeData.map((data) => (
-            <ListItemButton
-              key={data.key}
-              component={Link}
-              to={data.route}
-              sx={{
-                background: data.value === active ? "#279ff5" : "inherit",
-              }}
-              onClick={() => handleClick(data.value)}
-            >
-              <ListItemIcon sx={{ minWidth: 0, mr: 1 }}>
-                {data.icon}
-              </ListItemIcon>
-              <ListItemText primary={data.label} />
-            </ListItemButton>
-          ))}
-        </List>
+    <List
+      sx={{ width: "100%", maxWidth: 260, bgcolor: "background.paper" }}
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      subheader={
+        <ListSubheader component="div" id="nested-list-subheader">
+          Overview
+        </ListSubheader>
       }
+      dense
+    >
+      {listData.map((data) => (
+        <ListItemButton
+          key={data.key}
+          component={Link}
+          to={data.route}
+          sx={{
+            background: data.value === active ? "#279ff5" : "inherit",
+          }}
+          onClick={() => handleClick(data.value)}
+        >
+          <ListItemIcon sx={{ minWidth: 0, mr: 1 }}>{data.icon}</ListItemIcon>
+          <ListItemText primary={data.label} />
+        </ListItemButton>
+      ))}
+    </List>
     </>
+    
   );
 }

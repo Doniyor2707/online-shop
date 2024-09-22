@@ -9,6 +9,7 @@ import { MainLayout } from "./layout";
 import {
   AdminHome,
   AdminProducts,
+  Category,
   Home,
   Login,
   ProductsList,
@@ -35,7 +36,7 @@ const Router = () => {
       <Route path={adminRoutes.home} element={<AdminLayout />}>
         <Route path={adminRoutes.home} element={<AdminHome />} />
         <Route path={adminRoutes.products} element={<AdminProducts />} />
-        <Route path={adminRoutes.categories} element={<p>categories</p>} />     
+        <Route path={adminRoutes.categories} element={<Category/>} />     
       </Route>
 
     </Routes>
