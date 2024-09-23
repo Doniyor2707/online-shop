@@ -7,9 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Box, Button, Snackbar, Alert } from "@mui/material";
+import { Box, Button, Modal, Typography, Snackbar, Alert } from "@mui/material";
+// icons
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDeleteProductsMutation } from "../../../../app/services/admin/updateProducts/products";
+import ClearIcon from "@mui/icons-material/Clear";
+import { useDeleteProductsMutation } from "../../../../app/services/admin/deleteProduct/deleteProduct";
 
 const columns = [
   { id: "id", label: "#", minWidth: 50 },
@@ -24,12 +26,34 @@ const columns = [
   { id: "category", label: "Category", minWidth: 50 },
 ];
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "none",
+  boxShadow: 24,
+  p: 4,
+};
+
 function ProductsTable({ rows }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [open, setOpen] = React.useState(false);
-  const [alertType, setAlertType] = React.useState("success");
-  const [message, setMessage] = React.useState("");
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState("success");
+
+  const [id, setId] = React.useState([]);
+
+  const handleOpen = (id, title) => {
+    setId([id, title]);
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
 
   // API
   const [deleteProduct] = useDeleteProductsMutation();
@@ -43,26 +67,24 @@ function ProductsTable({ rows }) {
     setPage(0);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
+    
     try {
-      const res = await deleteProduct(id).unwrap();
-      console.log(res);
+      handleClose();
+      const res = await deleteProduct(id[0]).unwrap();
 
-      setAlertType("success");
-      setMessage(`Product with ID: ${id} has been deleted successfully!`);
+      setSnackbarMessage(`${id[0]}: ${id[1]}`);
+      
+      setSnackbarOpen(true);
     } catch (err) {
-      setAlertType("error");
-      setMessage(`Failed to delete product with ID: ${id}`);
-    } finally {
-      setOpen(true); 
+      setSnackbarMessage(`Error deleting product: ${err.message}`);
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
     }
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -101,17 +123,54 @@ function ProductsTable({ rows }) {
                       <Box display={"flex"} alignItems={"center"} gap={3}>
                         <Button
                           variant="outlined"
-                          startIcon={<DeleteIcon />}
                           color="error"
-                          onClick={() => handleDelete(row.id)}
+                          onClick={() => handleOpen(row.id, row.title)}
                         >
                           Delete
                         </Button>
+
                         <Button variant="outlined">Edit</Button>
                       </Box>
                     </TableCell>
                   </TableRow>
                 ))}
+              {/* modal */}
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                    gap={2}
+                  >
+                    Do you really want to delete: {id[1]}?
+                  </Typography>
+
+                  <Box display={"flex"} justifyContent={"flex-end"} mt={2}>
+                    <Button
+                      variant="outlined"
+                      onClick={handleClose}
+                      startIcon={<ClearIcon />}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      sx={{ ml: "5px" }}
+                      startIcon={<DeleteIcon />}
+                      onClick={handleDelete}
+                    >
+                      Delete
+                    </Button>
+                  </Box>
+                </Box>
+              </Modal>
             </TableBody>
           </Table>
         </TableContainer>
@@ -126,19 +185,15 @@ function ProductsTable({ rows }) {
         />
       </Paper>
 
-      {/* Snackbar for displaying success or error message */}
+      {/* Snackbar for success/error messages */}
       <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        onClose={handleClose}
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert
-          onClose={handleClose}
-          severity={alertType}
-          sx={{ width: "100%" }}
-        >
-          {message}
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
+          {snackbarMessage}
         </Alert>
       </Snackbar>
     </>
