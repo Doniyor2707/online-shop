@@ -6,6 +6,8 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     const token = "";
     if (token) {
+      headers.set("Accept", "application/json");
+      headers.set("Content-Type", "application/json");
       headers.set("authentication", `Bearer ${token}`);
     }
 

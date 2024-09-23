@@ -7,6 +7,7 @@ import AdminLayout from "./layout/admin";
 import { MainLayout } from "./layout";
 // page
 import {
+  AddProducts,
   AdminHome,
   AdminProducts,
   Category,
@@ -19,7 +20,6 @@ import {
 const Router = () => {
   return (
     <Routes>
-      
       {/* auth */}
       <Route element={<MainAuth />}>
         <Route path={authRoutes.login} element={<Login />} />
@@ -36,9 +36,9 @@ const Router = () => {
       <Route path={adminRoutes.home} element={<AdminLayout />}>
         <Route path={adminRoutes.home} element={<AdminHome />} />
         <Route path={adminRoutes.products} element={<AdminProducts />} />
-        <Route path={adminRoutes.categories} element={<Category/>} />     
+        <Route path={adminRoutes.addProducts} element={<AddProducts />} />
+        <Route path={adminRoutes.categories} element={<Category />} />
       </Route>
-
     </Routes>
   );
 };

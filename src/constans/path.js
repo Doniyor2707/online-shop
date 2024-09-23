@@ -19,6 +19,7 @@ const publicRoutes = {
 const adminRoutes = {
   home: "/admin",
   products: "/admin/products",
+  addProducts: "/admin/products/addProducts",
   categories: "/admin/categories",
 };
 

@@ -1,10 +1,14 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useMemo } from "react";
-import Card from "../../../components/main/productsList/productsSection/productCard/Card";
+
+import ProductsTable from "./component/ProductsTable";
 import { useGetAllProductsQuery } from "../../../app/services/productsApi/productsApi";
 
 const AdminProducts = () => {
+  // API
   const allProductsRes = useGetAllProductsQuery();
+
+  // Memo
 
   const allProductsData = useMemo(() => {
     if (allProductsRes.data && allProductsRes.data.length > 0) {
@@ -14,20 +18,21 @@ const AdminProducts = () => {
   }, [allProductsRes.data]);
 
   return (
-    <Container fixed>
-      <Box p={4}>
-      <Grid container spacing={1}>
-        {allProductsRes.isLoading || allProductsRes.isFetching
-          ? "Products loading..."
-          : allProductsData.map((product) => (
-              <Grid item xs={12} sm={6} md={4} key={product.id}>
-                <Card {...product} />
-              </Grid>
-            ))}
-      </Grid>
+    <Box display={"flex"} flexDirection={"column"} p={2}>
+      {/* Title */}
+      <Typography variant="h5" fontWeight={700} color={"#3F4646"} mb={5}>
+        Products({allProductsData.length})
+      </Typography>
+
+      <Box>
+        {/* Products list */}
+        {allProductsRes.isLoading || allProductsRes.isFetching ? (
+          "Products loading..."
+        ) : (
+          <ProductsTable rows={allProductsData} />
+        )}
       </Box>
-     
-    </Container>
+    </Box>
   );
 };
 
