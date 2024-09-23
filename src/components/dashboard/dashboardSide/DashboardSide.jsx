@@ -7,7 +7,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { adminRoutes } from "../../../constans/path";
 import { useState } from "react";
 
@@ -36,41 +36,28 @@ const listData = [
 ];
 
 export default function DashboardSide() {
-  const [active, setActive] = useState("dashboard");
-
-  const handleClick = (val) => {
-    setActive(val);
-  };
+  const { pathname } = useLocation();
 
   return (
     <>
-    <List
-      sx={{ width: "100%", maxWidth: 260, bgcolor: "background.paper" }}
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          Overview
-        </ListSubheader>
-      }
-      dense
-    >
-      {listData.map((data) => (
-        <ListItemButton
-          key={data.key}
-          component={Link}
-          to={data.route}
-          sx={{
-            background: data.value === active ? "#279ff5" : "inherit",
-          }}
-          onClick={() => handleClick(data.value)}
-        >
-          <ListItemIcon sx={{ minWidth: 0, mr: 1 }}>{data.icon}</ListItemIcon>
-          <ListItemText primary={data.label} />
-        </ListItemButton>
-      ))}
-    </List>
+      <List
+        sx={{ width: "100%", maxWidth: 260, bgcolor: "background.paper" }}
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        subheader={
+          <ListSubheader component="div" id="nested-list-subheader">
+            Overview
+          </ListSubheader>
+        }
+        dense
+      >
+        {listData.map((data) => (
+          <ListItemButton key={data.key} component={Link} to={data.route}>
+            <ListItemIcon sx={{ minWidth: 0, mr: 1 }}>{data.icon}</ListItemIcon>
+            <ListItemText primary={data.label} />
+          </ListItemButton>
+        ))}
+      </List>
     </>
-    
   );
 }

@@ -2,31 +2,37 @@ import React, { Suspense } from "react";
 import MainAppBar from "../../components/dashboard/mainAppBar/MainAppBar";
 import DashboardSide from "../../components/dashboard/dashboardSide/DashboardSide";
 import { Outlet } from "react-router-dom";
-import { Stack } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 import { useState } from "react";
 
-
-
 const AdminLayout = () => {
+  const [open, setOpen] = useState(true);
 
-  const [open,setOpen] = useState(true)
-
-  
-  
-  
   return (
     <>
       {/* header */}
-      <MainAppBar setOpen={setOpen}/>
+      <MainAppBar setOpen={setOpen} />
 
-      <Stack flexDirection={"row"}>
+      <Grid container>
+        <Grid item xs={2}>
+          <DashboardSide open={open} />
+        </Grid>
         {/* side */}
-        <DashboardSide open={open}/>
-
-        <Suspense fallback={"Loading..."}>
-          <Outlet />
-        </Suspense>
-      </Stack>
+        <Grid item xs={10}>
+          <Box
+            sx={{
+              px: 6,
+              pt: 4,
+              height: "calc(100vh - 64px)",
+              overflow: "auto",
+            }}
+          >
+            <Suspense fallback={"Loading..."}>
+              <Outlet />
+            </Suspense>
+          </Box>
+        </Grid>
+      </Grid>
     </>
   );
 };

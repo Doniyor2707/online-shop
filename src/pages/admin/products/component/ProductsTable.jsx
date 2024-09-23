@@ -54,7 +54,7 @@ function ProductsTable({ rows }) {
       setAlertType("error");
       setMessage(`Failed to delete product with ID: ${id}`);
     } finally {
-      setOpen(true); // Show Snackbar
+      setOpen(true); 
     }
   };
 
