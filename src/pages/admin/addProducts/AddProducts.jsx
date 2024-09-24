@@ -2,57 +2,72 @@ import React, { useState } from "react";
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Grid,
   TextField,
   Typography,
 } from "@mui/material";
 import { useCreateProductMutation } from "../../../app/services/admin/createProduct/createProduct";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
+
+const initialValues = {
+  image: "",
+  title: "",
+  price: "",
+  description: "",
+  category: "",
+};
+
+const validationSchema = Yup.object().shape({
+  image: Yup.string()
+    .url("Invalid image URL format")
+    .required("Image URL is required"),
+  title: Yup.string().required(),
+  price: Yup.number()
+    .typeError("Price must be a number")
+    .positive("Price must be a positive value")
+    .required("Price is required"),
+  description: Yup.string().required(),
+  category: Yup.string().required(),
+});
 
 const AddProducts = () => {
-  const [productData, setProductData] = useState({
-    image: "",
-    title: "",
-    description: "",
-    category: "",
-  });
-
   const [addProduct] = useCreateProductMutation();
 
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      try {
+        const res = await addProduct(values).unwrap();
 
-  const handleChange = (e) => {
-    setProductData({
-      ...productData,
-      [e.target.name]: e.target.value,
-    });
-  };
+        if (!res) {
+          toast.error("Response error");
+          return;
+        }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+        toast.success("Product add successfully");
 
-    try {
-      const res = await addProduct(productData).unwrap();
-      setResponse(res);
-      setError(null);
+        resetForm();
+      } catch (err) {
+        if (err.status === "FETCH_ERROR") {
+          toast.warn("Connection Network error");
 
-      setProductData({
-        image: "",
-        title: "",
-        description: "",
-        category: "",
-      });
-    } catch (err) {
-      setError(err);
-      console.error("Error creating product:", err);
-    }
-  };
+          console.error(err);
+        }
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
 
   return (
     <Container>
       <Box mt={4}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -60,8 +75,24 @@ const AddProducts = () => {
                 label="Image URL"
                 variant="outlined"
                 name="image"
-                value={productData.image}
-                onChange={handleChange}
+                value={formik.values.image}
+                onChange={formik.handleChange}
+                error={formik.touched.image && Boolean(formik.errors.image)}
+                helperText={formik.touched.image && formik.errors.image}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                type="number"
+                label="Price"
+                variant="outlined"
+                name="price"
+                value={formik.values.price}
+                onChange={formik.handleChange}
+                error={formik.touched.price && Boolean(formik.errors.price)}
+                helperText={formik.touched.price && formik.errors.price}
               />
             </Grid>
 
@@ -71,8 +102,10 @@ const AddProducts = () => {
                 label="Title"
                 variant="outlined"
                 name="title"
-                value={productData.title}
-                onChange={handleChange}
+                value={formik.values.title}
+                onChange={formik.handleChange}
+                error={formik.touched.title && Boolean(formik.errors.title)}
+                helperText={formik.touched.title && formik.errors.title}
               />
             </Grid>
 
@@ -84,8 +117,15 @@ const AddProducts = () => {
                 multiline
                 rows={4}
                 name="description"
-                value={productData.description}
-                onChange={handleChange}
+                value={formik.values.description}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.description &&
+                  Boolean(formik.errors.description)
+                }
+                helperText={
+                  formik.touched.description && formik.errors.description
+                }
               />
             </Grid>
 
@@ -95,30 +135,22 @@ const AddProducts = () => {
                 label="Category"
                 variant="outlined"
                 name="category"
-                value={productData.category}
-                onChange={handleChange}
+                value={formik.values.category}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.category && Boolean(formik.errors.category)
+                }
+                helperText={formik.touched.category && formik.errors.category}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <Button fullWidth variant="contained" type="submit">
-                Create Product
+              <Button fullWidth variant="contained" type="submit" disabled={formik.isSubmitting}>
+                {!formik.isSubmitting ? "Create Product" :<CircularProgress size={"24px"}/>}
               </Button>
             </Grid>
 
-            <Grid item xs={12}>
-              {response && (
-                <Typography color="success.main">
-                  Product created successfully! Response:{" "}
-                  {JSON.stringify(response)}
-                </Typography>
-              )}
-              {error && (
-                <Typography color="error">
-                  Error creating product: {error.message}
-                </Typography>
-              )}
-            </Grid>
+            <Grid item xs={12}></Grid>
           </Grid>
         </form>
       </Box>
