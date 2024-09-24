@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useCreateProductMutation } from "../../../app/services/admin/createProduct/createProduct";
 
 const AddProducts = () => {
@@ -12,7 +19,6 @@ const AddProducts = () => {
 
   const [addProduct] = useCreateProductMutation();
 
-  // For storing response
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
 
@@ -28,8 +34,8 @@ const AddProducts = () => {
 
     try {
       const res = await addProduct(productData).unwrap();
-      setResponse(res); 
-      setError(null);  
+      setResponse(res);
+      setError(null);
 
       setProductData({
         image: "",
@@ -37,7 +43,6 @@ const AddProducts = () => {
         description: "",
         category: "",
       });
-
     } catch (err) {
       setError(err);
       console.error("Error creating product:", err);
@@ -49,7 +54,6 @@ const AddProducts = () => {
       <Box mt={4}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            {/* Image Input */}
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -61,7 +65,6 @@ const AddProducts = () => {
               />
             </Grid>
 
-            {/* Title Input */}
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -73,7 +76,6 @@ const AddProducts = () => {
               />
             </Grid>
 
-            {/* Description Input */}
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -87,7 +89,6 @@ const AddProducts = () => {
               />
             </Grid>
 
-            {/* Category Input */}
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -99,18 +100,17 @@ const AddProducts = () => {
               />
             </Grid>
 
-            {/* Submit Button */}
             <Grid item xs={12}>
               <Button fullWidth variant="contained" type="submit">
                 Create Product
               </Button>
             </Grid>
 
-            {/* Response Output */}
             <Grid item xs={12}>
               {response && (
                 <Typography color="success.main">
-                  Product created successfully! Response: {JSON.stringify(response)}
+                  Product created successfully! Response:{" "}
+                  {JSON.stringify(response)}
                 </Typography>
               )}
               {error && (
