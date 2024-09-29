@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Button,
   CircularProgress,
   Container,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useCreateProductMutation } from "../../../app/services/admin/createProduct/createProduct";
 import * as Yup from "yup";
@@ -18,7 +21,7 @@ const initialValues = {
   title: "",
   price: "",
   description: "",
-  category: "",
+  categoryId: "",
 };
 
 const validationSchema = Yup.object().shape({
@@ -31,7 +34,7 @@ const validationSchema = Yup.object().shape({
     .positive("Price must be a positive value")
     .required("Price is required"),
   description: Yup.string().required(),
-  category: Yup.string().required(),
+  categoryId: Yup.number().required(),
 });
 
 const AddProducts = () => {
@@ -40,12 +43,15 @@ const AddProducts = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
-        const res = await addProduct(values).unwrap();
+        const res = await addProduct({
+          ...values,
+          images: [values.image],
+        }).unwrap();
 
-        if (!res) {
-          toast.error("Response error");
+        if (!res && res.error) {
+          toast.error(res.error);
           return;
         }
 
@@ -54,12 +60,10 @@ const AddProducts = () => {
         resetForm();
       } catch (err) {
         if (err.status === "FETCH_ERROR") {
-          toast.warn("Connection Network error");
-
-          console.error(err);
+          toast.warning("Connection failed!");
+        } else {
+          toast.error(err.data?.message);
         }
-      } finally {
-        setSubmitting(false);
       }
     },
   });
@@ -130,23 +134,44 @@ const AddProducts = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <TextField
+              <FormControl
                 fullWidth
-                label="Category"
-                variant="outlined"
-                name="category"
-                value={formik.values.category}
-                onChange={formik.handleChange}
                 error={
-                  formik.touched.category && Boolean(formik.errors.category)
+                  formik.touched.categoryId && Boolean(formik.errors.categoryId)
                 }
-                helperText={formik.touched.category && formik.errors.category}
-              />
+              >
+                <InputLabel id="demo-simple-select-label" size="small">
+                  Category
+                </InputLabel>
+                <Select
+                  rows={3}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Category"
+                  name="categoryId"
+                  value={formik.values.categoryId}
+                  onChange={formik.handleChange}
+                  size="small"
+                >
+                  <MenuItem value={1}>Ten</MenuItem>
+                  <MenuItem value={2}>Twenty</MenuItem>
+                  <MenuItem value={3}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
 
             <Grid item xs={12}>
-              <Button fullWidth variant="contained" type="submit" disabled={formik.isSubmitting}>
-                {!formik.isSubmitting ? "Create Product" :<CircularProgress size={"24px"}/>}
+              <Button
+                fullWidth
+                variant="contained"
+                type="submit"
+                disabled={formik.isSubmitting}
+              >
+                {!formik.isSubmitting ? (
+                  "Create Product"
+                ) : (
+                  <CircularProgress size={"24px"} />
+                )}
               </Button>
             </Grid>
 

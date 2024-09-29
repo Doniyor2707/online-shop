@@ -1,8 +1,10 @@
-export const baseUrl = "https://fakestoreapi.com";
+export const baseUrl = "https://api.escuelajs.co/api/v1";
 
 const products_api = {
   allProductsGet: "/products",
   productGetById: (id) => `/products/${id}`,
+  productUpdate: (id) => `/products/${id}`,
+  productDelete: (id) => `/products/${id}`,
   productGetByCategory: (category) => `/products/category/${category}`,
 };
 

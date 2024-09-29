@@ -10,19 +10,19 @@ import DashboardSideItem from "./DashboardSideItem";
 
 const listData = [
   {
-    key: 1,
+    id: 1,
     label: "Dashboard",
     route: adminRoutes.home,
     icon: <InsertChartIcon />,
   },
   {
-    key: 2,
+    id: 2,
     label: "Products",
     route: adminRoutes.products,
     icon: <ShoppingCartIcon />,
   },
   {
-    key: 3,
+    id: 3,
     label: "Categories",
     route: adminRoutes.categories,
     icon: <CategoryIcon />,
@@ -48,10 +48,11 @@ export default function DashboardSide() {
         {listData.map((item) => {
           const isActive =
             pathname === item.route ||
-            (item.route.split("/").length > 2 && pathname.startsWith(item.route));
+            (item.route.split("/").length > 2 &&
+              pathname.startsWith(item.route));
 
           return (
-            <DashboardSideItem key={item.route} {...item} isActive={isActive} />
+            <DashboardSideItem key={item.id} {...item} isActive={isActive} />
           );
         })}
       </List>

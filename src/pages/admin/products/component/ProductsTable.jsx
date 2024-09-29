@@ -14,23 +14,26 @@ import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 const columns = [
   { id: "id", label: "#", minWidth: 50 },
   {
-    id: "image",
+    id: "images",
     label: "Image",
     minWidth: 50,
-    render: (value) => <img src={value} alt="Product" width={64} />,
+    render: (images) => <img src={images[0]} alt="Product" width={64} />,
   },
   { id: "title", label: "Title", minWidth: 50 },
   { id: "price", label: "Price", minWidth: 50, render: (value) => `$${value}` },
-
   { id: "description", label: "Description", minWidth: 50 },
-  { id: "category", label: "Category", minWidth: 50 },
+  {
+    id: "category",
+    label: "Category",
+    minWidth: 50,
+    render: (value) => value.name,
+  },
 ];
 
 function ProductsTable({ rows, onDelete, onEdit }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
- 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -45,8 +48,8 @@ function ProductsTable({ rows, onDelete, onEdit }) {
     onDelete(id);
   };
 
-  const handleEdit = (id) => {
-    onEdit(id);
+  const handleEdit = (id, price, title, description, category) => {
+    onEdit(id, price, title, description, category);
   };
 
   return (
@@ -94,7 +97,16 @@ function ProductsTable({ rows, onDelete, onEdit }) {
                         <IconButton
                           size="small"
                           color="primary"
-                          onClick={() => handleEdit(row.id)}
+                          onClick={() =>
+                            handleEdit(
+                              row.id,
+                              row.image,
+                              row.price,
+                              row.title,
+                              row.description,
+                              row.category
+                            )
+                          }
                         >
                           <EditOutlined fontSize="inherit" />
                         </IconButton>

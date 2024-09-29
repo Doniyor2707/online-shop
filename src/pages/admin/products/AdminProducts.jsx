@@ -1,13 +1,5 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-  Typography,
-} from "@mui/material";
-import React, { useMemo, useState } from "react";
+import { Box, Button, Typography } from "@mui/material";
+import React, { memo, useMemo, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 import ProductsTable from "./component/ProductsTable";
@@ -17,22 +9,33 @@ import { adminRoutes } from "../../../constans/path";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDeleteProductsMutation } from "../../../app/services/admin/deleteProduct/deleteProduct";
+import DeleteProduct from "./component/deleteProduct/DeleteProduct";
+import EditProduct from "./component/editProduct/EditProduct";
 
 const AdminProducts = () => {
-  //  state
+  //  delete state
   const [deleteDialog, setDeleteDialog] = useState({
     open: false,
     productId: null,
   });
 
+  // edit state
+  const [editDialog, setEditDialog] = useState({
+    open: false,
+    productId: null,
+    price: "",
+    title: "",
+    description: "",
+    category: "",
+  });
+
   // API
   const [deleteProduct, { isLoading: deleteIsLoading }] =
     useDeleteProductsMutation();
-
+  // all product res
   const allProductsRes = useGetAllProductsQuery();
 
   // Memo
-
   const allProductsData = useMemo(() => {
     if (allProductsRes.data && allProductsRes.data.length > 0) {
       return allProductsRes.data;
@@ -40,7 +43,9 @@ const AdminProducts = () => {
     return [];
   }, [allProductsRes.data]);
 
-  const handleDelete = async (id) => {
+  
+  // handle delete
+  const handleDelete = async () => {
     if (!deleteDialog.productId) {
       throw new Error("`deleteDialog.productId` is required");
     }
@@ -64,8 +69,30 @@ const AdminProducts = () => {
     }
   };
 
-  const handleEdit = (id) => {
-    console.log(id);
+  const handleEdit = async () => {
+    if (!editDialog.productId) {
+      throw new Error(`${editDialog.productId} is required`);
+    }
+
+    try {
+      const res = await editDialog(
+        deleteDialog.productId,
+        deleteDialog
+      ).unwrap();
+
+      if (!res) {
+        toast.error("Product was not edit");
+        return;
+      }
+
+      toast.success("Product edit successfully");
+    } catch (err) {
+      if (err.status === "FETCH_ERROR") {
+        toast.warn("Connection Network error");
+
+        console.log(err);
+      }
+    }
   };
 
   const handleOpenDeleteDialog = (productId) => {
@@ -79,6 +106,33 @@ const AdminProducts = () => {
     if (deleteIsLoading) return;
 
     setDeleteDialog({
+      open: false,
+      productId,
+    });
+  };
+
+  const handleOpenEditDialog = (
+    productId,
+    image,
+    price,
+    title,
+    description,
+    category
+  ) => {
+    setEditDialog({
+      open: true,
+      productId,
+      image,
+      price,
+      title,
+      description,
+      category,
+    });
+  };
+
+  const handleCloseEditDialog = (productId) => {
+
+    setEditDialog({
       open: false,
       productId,
     });
@@ -115,31 +169,26 @@ const AdminProducts = () => {
             <ProductsTable
               rows={allProductsData}
               onDelete={handleOpenDeleteDialog}
-              onEdit={handleEdit}
+              onEdit={handleOpenEditDialog}
             />
           )}
         </Box>
       </Box>
 
-      <Dialog
-        open={deleteDialog.open}
-        onClose={handleCloseDeleteDialog}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {" Do you wont to delete the product?"}
-        </DialogTitle>
+      {/* Edit Product */}
+      <EditProduct
+        handleEdit={handleEdit}
+        editDialog={editDialog}
+        handleCloseEditDialog={handleCloseEditDialog}        
+      />
 
-        <DialogActions>
-          <Button onClick={handleCloseDeleteDialog} disabled={deleteIsLoading}>
-            Disagree
-          </Button>
-          <Button onClick={handleDelete} autoFocus disabled={deleteIsLoading}>
-            {!deleteIsLoading ? "Agree" : <CircularProgress size={"16px"} />}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {/* Delete product */}
+      <DeleteProduct
+        handleDelete={handleDelete}
+        deleteDialog={deleteDialog}
+        handleCloseDeleteDialog={handleCloseDeleteDialog}
+        deleteIsLoading={deleteIsLoading}
+      />
     </>
   );
 };
