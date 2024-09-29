@@ -10,6 +10,8 @@ import TableRow from "@mui/material/TableRow";
 import { Stack, IconButton } from "@mui/material";
 // icons
 import { DeleteOutline, EditOutlined } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { adminRoutes } from "../../../../constans/path";
 
 const columns = [
   { id: "id", label: "#", minWidth: 50 },
@@ -46,10 +48,6 @@ function ProductsTable({ rows, onDelete, onEdit }) {
   // delete product
   const handleDelete = (id) => {
     onDelete(id);
-  };
-
-  const handleEdit = (id, price, title, description, category) => {
-    onEdit(id, price, title, description, category);
   };
 
   return (
@@ -97,16 +95,8 @@ function ProductsTable({ rows, onDelete, onEdit }) {
                         <IconButton
                           size="small"
                           color="primary"
-                          onClick={() =>
-                            handleEdit(
-                              row.id,
-                              row.image,
-                              row.price,
-                              row.title,
-                              row.description,
-                              row.category
-                            )
-                          }
+                          LinkComponent={Link}
+                          to={adminRoutes.productsUpdate.replace(':productId',row.id)}
                         >
                           <EditOutlined fontSize="inherit" />
                         </IconButton>

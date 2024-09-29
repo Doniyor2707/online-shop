@@ -1,16 +1,16 @@
-import { Box, Button, Typography } from "@mui/material";
-import React, { memo, useMemo, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
+import { Box, Button, Typography } from "@mui/material";
+import React, { useMemo, useState } from "react";
 
-import ProductsTable from "./component/ProductsTable";
 import { useGetAllProductsQuery } from "../../../app/services/productsApi/productsApi";
+import ProductsTable from "./component/ProductsTable";
 
-import { adminRoutes } from "../../../constans/path";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDeleteProductsMutation } from "../../../app/services/admin/deleteProduct/deleteProduct";
-import DeleteProduct from "./component/deleteProduct/DeleteProduct";
-import EditProduct from "./component/editProduct/EditProduct";
+import { adminRoutes } from "../../../constans/path";
+import DeleteProduct from "../deleteProduct/DeleteProduct";
+import EditProduct from "../editProduct/EditProduct";
 
 const AdminProducts = () => {
   //  delete state
@@ -23,10 +23,11 @@ const AdminProducts = () => {
   const [editDialog, setEditDialog] = useState({
     open: false,
     productId: null,
+    images: "",
     price: "",
     title: "",
     description: "",
-    category: "",
+    categoryId: "",
   });
 
   // API
@@ -117,7 +118,7 @@ const AdminProducts = () => {
     price,
     title,
     description,
-    category
+    categoryId
   ) => {
     setEditDialog({
       open: true,
@@ -126,7 +127,7 @@ const AdminProducts = () => {
       price,
       title,
       description,
-      category,
+      categoryId,
     });
   };
 
@@ -175,12 +176,7 @@ const AdminProducts = () => {
         </Box>
       </Box>
 
-      {/* Edit Product */}
-      <EditProduct
-        handleEdit={handleEdit}
-        editDialog={editDialog}
-        handleCloseEditDialog={handleCloseEditDialog}        
-      />
+  
 
       {/* Delete product */}
       <DeleteProduct

@@ -20,6 +20,7 @@ const adminRoutes = {
   home: "/admin",
   products: "/admin/products",
   addProducts: "/admin/products/addProducts",
+  productsUpdate: "/admin/products/:productId/update",
   categories: "/admin/categories",
 };
 
