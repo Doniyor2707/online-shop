@@ -21,6 +21,7 @@ const adminRoutes = {
   products: "/admin/products",
   addProducts: "/admin/products/addProducts",
   productsUpdate: "/admin/products/:productId/update",
+  categoryUpdate: "/admin/category/:categoryId/update",
   categories: "/admin/categories",
 };
 

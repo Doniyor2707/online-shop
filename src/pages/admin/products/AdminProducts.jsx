@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { useDeleteProductsMutation } from "../../../app/services/admin/deleteProduct/deleteProduct";
 import { adminRoutes } from "../../../constans/path";
 import DeleteProduct from "../deleteProduct/DeleteProduct";
-import EditProduct from "../editProduct/EditProduct";
+
 
 const AdminProducts = () => {
   //  delete state
@@ -20,14 +20,9 @@ const AdminProducts = () => {
   });
 
   // edit state
-  const [editDialog, setEditDialog] = useState({
+  const [setEditDialog] = useState({
     open: false,
     productId: null,
-    images: "",
-    price: "",
-    title: "",
-    description: "",
-    categoryId: "",
   });
 
   // API
@@ -70,31 +65,7 @@ const AdminProducts = () => {
     }
   };
 
-  const handleEdit = async () => {
-    if (!editDialog.productId) {
-      throw new Error(`${editDialog.productId} is required`);
-    }
-
-    try {
-      const res = await editDialog(
-        deleteDialog.productId,
-        deleteDialog
-      ).unwrap();
-
-      if (!res) {
-        toast.error("Product was not edit");
-        return;
-      }
-
-      toast.success("Product edit successfully");
-    } catch (err) {
-      if (err.status === "FETCH_ERROR") {
-        toast.warn("Connection Network error");
-
-        console.log(err);
-      }
-    }
-  };
+ 
 
   const handleOpenDeleteDialog = (productId) => {
     setDeleteDialog({
@@ -114,30 +85,15 @@ const AdminProducts = () => {
 
   const handleOpenEditDialog = (
     productId,
-    image,
-    price,
-    title,
-    description,
-    categoryId
   ) => {
     setEditDialog({
       open: true,
       productId,
-      image,
-      price,
-      title,
-      description,
-      categoryId,
+     
     });
   };
 
-  const handleCloseEditDialog = (productId) => {
 
-    setEditDialog({
-      open: false,
-      productId,
-    });
-  };
 
   return (
     <>

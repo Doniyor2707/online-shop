@@ -9,8 +9,10 @@ const products_api = {
 };
 
 const category_api = {
-  allCategory: "/products/categories",
-  categoryItem: (item) => `/products/categories/${item}`,
+  allCategory: "/categories",
+  updateCategory: (id)=> `/categories/${id}`,
+  deleteCategory: (id)=> `/categories/${id}`,
+  categoryId: (id) => `/categories/${id}`,
 };
 
 const auth_Url = {

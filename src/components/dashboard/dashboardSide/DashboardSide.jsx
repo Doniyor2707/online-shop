@@ -29,22 +29,25 @@ const listData = [
   },
 ];
 
-export default function DashboardSide() {
+export default function DashboardSide({ open }) {
   const { pathname } = useLocation();
 
   return (
     <>
       <List
-        sx={{ width: "100%", maxWidth: 260, bgcolor: "background.paper" }}
+        sx={{
+          width: open ? 200 : 0,
+          transition: "width 0.3s",
+          bgcolor: "background.paper",
+          overflow: "hidden",
+        }}
         component="nav"
         aria-labelledby="nested-list-subheader"
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Overview
-          </ListSubheader>
-        }
         dense
       >
+        <ListSubheader component="div" id="nested-list-subheader">
+          Overview
+        </ListSubheader>
         {listData.map((item) => {
           const isActive =
             pathname === item.route ||
@@ -52,7 +55,12 @@ export default function DashboardSide() {
               pathname.startsWith(item.route));
 
           return (
-            <DashboardSideItem key={item.id} {...item} isActive={isActive} />
+            <DashboardSideItem
+              key={item.id}
+              {...item}
+              isActive={isActive}
+              open={open}
+            />
           );
         })}
       </List>

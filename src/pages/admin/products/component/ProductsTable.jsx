@@ -19,7 +19,18 @@ const columns = [
     id: "images",
     label: "Image",
     minWidth: 50,
-    render: (images) => <img src={images[0]} alt="Product" width={64} />,
+    render: (images) => {
+      let src = "";
+      if (images) {
+        try {
+          const img = JSON.parse(images[0]);
+          src = img;
+        } catch (err) {
+          src = images[0];
+        }
+      }
+      return <img src={src} alt="Product" width={64} />;
+    },
   },
   { id: "title", label: "Title", minWidth: 50 },
   { id: "price", label: "Price", minWidth: 50, render: (value) => `$${value}` },
@@ -32,7 +43,7 @@ const columns = [
   },
 ];
 
-function ProductsTable({ rows, onDelete, onEdit }) {
+function ProductsTable({ rows, onDelete }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -96,7 +107,10 @@ function ProductsTable({ rows, onDelete, onEdit }) {
                           size="small"
                           color="primary"
                           LinkComponent={Link}
-                          to={adminRoutes.productsUpdate.replace(':productId',row.id)}
+                          to={adminRoutes.productsUpdate.replace(
+                            ":productId",
+                            row.id
+                          )}
                         >
                           <EditOutlined fontSize="inherit" />
                         </IconButton>

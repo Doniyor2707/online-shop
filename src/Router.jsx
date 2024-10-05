@@ -11,6 +11,7 @@ import {
   AdminHome,
   AdminProducts,
   Category,
+  EditCategory,
   EditProduct,
   Home,
   Login,
@@ -39,6 +40,7 @@ const Router = () => {
         <Route path={adminRoutes.products} element={<AdminProducts />} />
         <Route path={adminRoutes.addProducts} element={<AddProducts />} />
         <Route path={adminRoutes.productsUpdate} element={<EditProduct />} />
+        <Route path={adminRoutes.categoryUpdate} element={<EditCategory />} />
 
         <Route path={adminRoutes.categories} element={<Category />} />
       </Route>

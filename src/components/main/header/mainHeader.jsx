@@ -37,6 +37,7 @@ const MainHeader = ({ data, dataRes, onOpenFavourite, onOpenBasket }) => {
   const handleOpenBasketDrawer = useCallback(() => {
     onOpenBasket();
   }, [onOpenBasket]);
+  
 
   return (
     <div className={styles.header}>
@@ -50,12 +51,12 @@ const MainHeader = ({ data, dataRes, onOpenFavourite, onOpenBasket }) => {
           {dataRes.isLoading || dataRes.isFetching
             ? "Loading..."
             : data.map((item) => (
-                <li className={styles.listItem} key={item}>
+                <li className={styles.listItem} key={item.id}>
                   <Link
                     className={styles.listItemLink}
-                    to={`/products/list?category=${item}`}
+                    to={`/products/list?category=${item.name}`}
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}

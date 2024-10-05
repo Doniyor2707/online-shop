@@ -3,9 +3,6 @@ import {
   Button,
   Card,
   CircularProgress,
-  Container,
-  Dialog,
-  DialogActions,
   FormControl,
   Grid,
   InputLabel,
@@ -19,9 +16,10 @@ import { useEffect, useMemo } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { useUpdateProductsMutation } from "../../../app/services/admin/updateProduct/updateProduct";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../../../app/services/productsApi/productsApi";
 import { adminRoutes } from "../../../constans/path";
+import { useGetAllCategoryQuery } from "../../../app/services/category/categoryApi";
 
 const initialValues = {
   images: "",
@@ -45,11 +43,19 @@ const validationSchema = Yup.object().shape({
 });
 
 const EditProduct = () => {
-  
   // useParams bu pathda yozgan urlning ": " shu qisminda keyingi qismini oladi
   const { productId } = useParams();
 
   const navigate = useNavigate();
+
+  const allCategoryRes = useGetAllCategoryQuery();
+
+  const allCategoryData = useMemo(() => {
+    if (allCategoryRes.data && allCategoryRes.data.length) {
+      return allCategoryRes.data;
+    }
+    return [];
+  }, [allCategoryRes.data]);  
 
   // skib bu agar product id bo'lmasa o'tkasib yuboradi
   const getProductById = useGetProductByIdQuery(productId, {
@@ -103,10 +109,10 @@ const EditProduct = () => {
         title: productData.title,
         price: productData.price,
         description: productData.description,
-        images: JSON.parse(productData.images[0]),
+        images: productData.images[0],
       });
     }
-  }, [formik, productData]);
+  }, [formik.values.title, productData]);
 
   return (
     <Card sx={{ p: "10px" }}>
@@ -121,7 +127,7 @@ const EditProduct = () => {
                 fullWidth
                 label="Image URL"
                 variant="outlined"
-                name="image"
+                name="images"
                 value={formik.values.images}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -200,9 +206,9 @@ const EditProduct = () => {
                   onChange={formik.handleChange}
                   size="small"
                 >
-                  <MenuItem value={1}>Ten</MenuItem>
-                  <MenuItem value={2}>Twenty</MenuItem>
-                  <MenuItem value={3}>Thirty</MenuItem>
+                  {allCategoryData.map((item) => (
+                    <MenuItem key={item.image} value={item.id}>{item.name}</MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>

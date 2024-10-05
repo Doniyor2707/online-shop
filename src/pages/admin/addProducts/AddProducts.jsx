@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Box,
   Button,
@@ -15,6 +15,7 @@ import { useCreateProductMutation } from "../../../app/services/admin/createProd
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
+import { useGetAllCategoryQuery } from "../../../app/services/category/categoryApi";
 
 const initialValues = {
   image: "",
@@ -39,6 +40,15 @@ const validationSchema = Yup.object().shape({
 
 const AddProducts = () => {
   const [addProduct] = useCreateProductMutation();
+
+  const allCategoryRes = useGetAllCategoryQuery();
+
+  const allCategoryData = useMemo(() => {
+    if (allCategoryRes.data && allCategoryRes.data.length) {
+      return allCategoryRes.data;
+    }
+    return [];
+  }, [allCategoryRes.data]);  
 
   const formik = useFormik({
     initialValues,
@@ -153,9 +163,9 @@ const AddProducts = () => {
                   onChange={formik.handleChange}
                   size="small"
                 >
-                  <MenuItem value={1}>Ten</MenuItem>
-                  <MenuItem value={2}>Twenty</MenuItem>
-                  <MenuItem value={3}>Thirty</MenuItem>
+                  {allCategoryData.map((item) => (
+                    <MenuItem key={item.image} value={item.id}>{item.name}</MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
